@@ -542,7 +542,6 @@ animation: gridDrift 18s linear infinite;
       grid-template-columns: repeat(2, 1fr);
       gap: 22px;
     }
-
     .project-card {
       position: relative;
       padding: 34px;
@@ -605,6 +604,19 @@ animation: gridDrift 18s linear infinite;
       letter-spacing: 0.13em;
       text-transform: uppercase;
     }
+    .project-verified {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 5px 8px;
+  border: 1px solid rgba(83, 215, 105, .25);
+  border-radius: 6px;
+  color: #8fe3a0;
+  background: rgba(83, 215, 105, .08);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  vertical-align: middle;
+}
 
     .project-card h3 {
       font-family: "Space Grotesk", sans-serif;
@@ -962,6 +974,11 @@ animation: gridDrift 18s linear infinite;
         min-height: auto;
         padding: 28px;
       }
+      .project-verified {
+  display: block;
+  width: fit-content;
+  margin: 8px 0 0;
+}
 
       .hero {
         padding-top: 130px;
@@ -1206,13 +1223,13 @@ animation: gridDrift 18s linear infinite;
 
     <section class="section projects" id="projects">
       <div class="container">
-
+  
         <div class="section-heading reveal">
-          <span class="eyebrow">Projects</span>
+          <span class="eyebrow">Selected Work</span>
           <h2>Building through real-world projects.</h2>
           <p>
-            Real projects created while learning, experimenting,
-            and solving practical problems.
+            A selection of websites and applications built through
+  hands-on development, experimentation, and practical problem-solving.
           </p>
         </div>
 
@@ -1232,6 +1249,7 @@ animation: gridDrift 18s linear infinite;
               <span class="project-category">
                 Innovation & Startup Platform
               </span>
+              <span class="project-verified">LIVE PROJECT</span>
 
               <h3>
                 Catalyst Innovation Hub
@@ -1257,7 +1275,7 @@ animation: gridDrift 18s linear infinite;
                 rel="noopener noreferrer"
                 class="project-link"
               >
-                View Live Project ↗
+                Open Live Project  ↗
               </a>
 
             </div>
@@ -1278,6 +1296,7 @@ animation: gridDrift 18s linear infinite;
               <span class="project-category">
                 Real-World Business Website
               </span>
+              <span class="project-verified">LIVE PROJECT</span>
 
               <h3>
                 AFZAL AUTO GARAGE
@@ -1303,7 +1322,7 @@ animation: gridDrift 18s linear infinite;
                 rel="noopener noreferrer"
                 class="project-link"
               >
-                View Live Project ↗
+                Open Live project  ↗
               </a>
 
             </div>
@@ -1330,10 +1349,9 @@ animation: gridDrift 18s linear infinite;
               </h3>
 
               <p>
-                An application developed with AI-assisted tools.
-                Project details, technical implementation, and
-                my contribution will be documented here after
-                the project is reviewed and finalized.
+               An application developed through AI-assisted development workflows,
+  with the project structure, technical implementation, and my contribution
+  being documented as the project is reviewed and finalized. 
               </p>
 
               <div class="project-tech">
