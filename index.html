@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Mohamed Fazil | B.Tech Student & Aspiring Software Developer</title>
+
+  <meta
+    name="description"
+    content="Mohamed Fazil — B.Tech CSE student at JB Groups of Institutions, building websites and applications while developing skills in programming and software development."
+  />
+
+  <meta name="author" content="Mohamed Fazil" />
+
+  <meta
+    name="keywords"
+    content="Mohamed Fazil, software developer, B.Tech CSE student, web developer, Python, C, Java, HTML, CSS, JavaScript, developer portfolio"
+  />
+
+  <meta name="theme-color" content="#090909" />
+
+  <!-- Open Graph -->
+  <meta
+    property="og:title"
+    content="Mohamed Fazil | Developer Portfolio"
+  />
+
+  <meta
+    property="og:description"
+    content="B.Tech CSE student building real-world websites and applications."
+  />
+
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #090909;
+      color: #f5f5f5;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ::selection {
+      background: #ff4d3d;
+      color: #ffffff;
+    }
+
+    /* =========================================================
+       VARIABLES
+    ========================================================= */
+
+    :root {
+      --bg: #090909;
+      --bg-secondary: #101010;
+      --card: rgba(255, 255, 255, 0.045);
+      --card-hover: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.10);
+      --text: #f5f5f5;
+      --muted: #a0a0a0;
+      --accent: #ff4d3d;
+      --accent-dark: #d93629;
+      --max-width: 1180px;
+      --radius: 20px;
+    }
+
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 110px 0;
+      position: relative;
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 55px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.05;
+      margin-bottom: 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 650px;
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 18px 0;
+      background: rgba(9, 9, 9, 0.72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid transparent;
+      transition: 0.3s ease;
+    }
+
+    header.scrolled {
+      border-bottom-color: var(--border);
+      background: rgba(9, 9, 9, 0.92);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .logo {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #bdbdbd;
+      font-size: 0.9rem;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 140px 0 100px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      right: -200px;
+      top: 50px;
+      background: radial-gradient(
+        circle,
+        rgba(255, 77, 61, 0.16),
+        transparent 65%
+      );
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      left: -250px;
+      bottom: -250px;
+      background: radial-gradient(
+        circle,
+        rgba(255, 77, 61, 0.08),
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+
+    .hero-label {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.065em;
+      max-width: 950px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-description {
+      max-width: 700px;
+      color: #b5b5b5;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 21px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.25s ease;
+      border: 1px solid var(--border);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: #ffffff;
+    }
+
+    .btn-secondary:hover {
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    .hero-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 45px;
+      color: #8f8f8f;
+      font-size: 0.85rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #53d769;
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(83, 215, 105, 0.5);
+    }
+
+    /* =========================================================
+       ABOUT
+    ========================================================= */
+
+    .about {
+      background: var(--bg-secondary);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .about-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .about-content p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .about-highlight {
+      margin-top: 35px;
+      padding: 22px;
+      border-left: 2px solid var(--accent);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .about-highlight p {
+      margin: 0;
+      color: #d8d8d8;
+    }
+
+    /* =========================================================
+       SKILLS
+    ========================================================= */
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .skill-card {
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      transition: 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      background: var(--card-hover);
+      border-color: rgba(255, 77, 61, 0.3);
+    }
+
+    .skill-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(255, 77, 61, 0.12);
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .skill-card h3 {
+      font-family: "Space Grotesk", sans-serif;
+      margin-bottom: 14px;
+      font-size: 1.2rem;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .skill-list li {
+      padding: 7px 11px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid var(--border);
+      color: #c7c7c7;
+      font-size: 0.78rem;
+    }
+
+    /* =========================================================
+       PROJECTS
+    ========================================================= */
+
+    .projects {
+      background: var(--bg-secondary);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .project-card {
+      position: relative;
+      padding: 34px;
+      min-height: 420px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.055),
+          rgba(255, 255, 255, 0.018)
+        );
+      overflow: hidden;
+      transition: 0.35s ease;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      right: -120px;
+      top: -120px;
+      background: radial-gradient(
+        circle,
+        rgba(255, 77, 61, 0.16),
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255, 77, 61, 0.35);
+    }
+
+    .project-number {
+      font-family: "Space Grotesk", sans-serif;
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 35px;
+    }
+
+    .project-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-category {
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .project-card h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      line-height: 1.1;
+      margin: 12px 0 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 25px;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 30px;
+    }
+
+    .project-tech span {
+      padding: 6px 9px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: #c7c7c7;
+      font-size: 0.72rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .project-link:hover {
+      color: var(--accent);
+    }
+
+    .project-note {
+      margin-top: 30px;
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    /* =========================================================
+       JOURNEY
+    ========================================================= */
+
+    .journey-wrapper {
+      max-width: 900px;
+    }
+
+    .journey-item {
+      position: relative;
+      padding: 0 0 55px 35px;
+      border-left: 1px solid var(--border);
+    }
+
+    .journey-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .journey-item::before {
+      content: "";
+      position: absolute;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--accent);
+      left: -6px;
+      top: 5px;
+      box-shadow: 0 0 20px rgba(255, 77, 61, 0.4);
+    }
+
+    .journey-date {
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .journey-item h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .journey-item p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    /* =========================================================
+       EDUCATION
+    ========================================================= */
+
+    .education {
+      background: var(--bg-secondary);
+    }
+
+    .education-card {
+      padding: 38px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      max-width: 850px;
+    }
+
+    .education-label {
+      color: var(--accent);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .education-card h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .education-card .institution {
+      color: #d1d1d1;
+      margin-bottom: 15px;
+    }
+
+    .education-card p {
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       CONTACT
+    ========================================================= */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .contact-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2.3rem, 5vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      margin-bottom: 25px;
+    }
+
+    .contact-description {
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 30px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: #d5d5d5;
+      font-size: 0.9rem;
+      transition: 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+    }
+
+    .contact-form {
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #a8a8a8;
+      font-size: 0.75rem;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.035);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 13px 14px;
+      outline: none;
+      font: inherit;
+      transition: 0.2s ease;
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(255, 77, 61, 0.65);
+    }
+
+    .contact-form .btn {
+      width: 100%;
+      cursor: pointer;
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--border);
+      background: #070707;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-content p {
+      color: #777;
+      font-size: 0.78rem;
+    }
+
+    .footer-brand {
+      color: #aaaaaa;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       REVEAL ANIMATION
+    ========================================================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 900px) {
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .section {
+        padding: 80px 0;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 4%;
+        right: 4%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px;
+        background: rgba(15, 15, 15, 0.97);
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        backdrop-filter: blur(20px);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 13px 12px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        min-height: auto;
+        padding: 28px;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3rem, 16vw, 5rem);
+      }
+
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+
+  <header id="header">
+    <div class="container nav">
+
+      <a href="#home" class="logo">
+        Fazil<span>.</span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+    </div>
+  </header>
+
+
+  <!-- =======================================================
+       HERO
+  ======================================================== -->
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="container">
+
+        <div class="hero-content reveal">
+
+          <div class="hero-label">
+            B.Tech CSE Student • Aspiring Software Developer
+          </div>
+
+          <h1>
+            Building ideas into
+            <span>real experiences.</span>
+          </h1>
+
+          <p class="hero-description">
+            I'm Mohamed Fazil, a second-year B.Tech Computer Science
+            Engineering student at JB Groups of Institutions. I enjoy
+            building websites and applications while continuously
+            strengthening my programming, web development, and
+            software engineering skills.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">
+              Explore My Projects →
+            </a>
+
+            <a href="#contact" class="btn btn-secondary">
+              Get In Touch
+            </a>
+          </div>
+
+          <div class="hero-status">
+            <span class="status-dot"></span>
+            Currently learning, building, and improving
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ABOUT
+    ====================================================== -->
+
+    <section class="section about" id="about">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">About Me</span>
+          <h2>Learning by building.</h2>
+        </div>
+
+        <div class="about-grid">
+
+          <div class="reveal">
+            <h3 class="about-title">
+              A student developer focused on turning ideas into useful digital products.
+            </h3>
+          </div>
+
+          <div class="about-content reveal">
+
+            <p>
+              I am Mohamed Fazil, a B.Tech Computer Science Engineering
+              student at JB Groups of Institutions. My current focus is
+              developing a strong foundation in programming and modern
+              web development.
+            </p>
+
+            <p>
+              Rather than learning only through theory, I enjoy applying
+              what I learn by creating websites, applications, interfaces,
+              and practical projects.
+            </p>
+
+            <p>
+              My goal is to continuously improve my technical ability,
+              understand how real software is developed, and eventually
+              contribute to meaningful projects in professional
+              environments.
+            </p>
+
+            <div class="about-highlight">
+              <p>
+                <strong>My approach:</strong>
+                Learn → Build → Test → Improve → Repeat.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         SKILLS
+    ====================================================== -->
+
+    <section class="section" id="skills">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">Skills</span>
+          <h2>What I'm working with.</h2>
+          <p>
+            A growing technical foundation built through coursework,
+            experimentation, and practical projects.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+
+          <article class="skill-card reveal">
+            <div class="skill-icon">01</div>
+
+            <h3>Programming</h3>
+
+            <ul class="skill-list">
+              <li>Python</li>
+              <li>C</li>
+              <li>Java</li>
+            </ul>
+          </article>
+
+
+          <article class="skill-card reveal">
+            <div class="skill-icon">02</div>
+
+            <h3>Web Development</h3>
+
+            <ul class="skill-list">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+            </ul>
+          </article>
+
+
+          <article class="skill-card reveal">
+            <div class="skill-icon">03</div>
+
+            <h3>Tools</h3>
+
+            <ul class="skill-list">
+              <li>Git</li>
+              <li>GitHub</li>
+              <li>VS Code</li>
+            </ul>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         PROJECTS
+    ====================================================== -->
+
+    <section class="section projects" id="projects">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">Selected Work</span>
+          <h2>Things I've built.</h2>
+          <p>
+            Real projects created while learning, experimenting,
+            and solving practical problems.
+          </p>
+        </div>
+
+
+        <div class="projects-grid">
+
+          <!-- PROJECT 01 -->
+
+          <article class="project-card reveal">
+
+            <div class="project-number">
+              01
+            </div>
+
+            <div class="project-content">
+
+              <span class="project-category">
+                Innovation & Startup Platform
+              </span>
+
+              <h3>
+                Catalyst Innovation Hub
+              </h3>
+
+              <p>
+                A platform concept designed to connect innovators,
+                entrepreneurs, mentors, and startup teams through
+                idea submissions, team formation, hackathons,
+                mentorship, and project showcasing.
+              </p>
+
+              <div class="project-tech">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Responsive UI</span>
+              </div>
+
+              <a
+                href="https://catalyst-innovation-hub.great-site.net/?i=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+              >
+                View Live Project ↗
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 02 -->
+
+          <article class="project-card reveal">
+
+            <div class="project-number">
+              02
+            </div>
+
+            <div class="project-content">
+
+              <span class="project-category">
+                Real-World Business Website
+              </span>
+
+              <h3>
+                AFZAL AUTO GARAGE
+              </h3>
+
+              <p>
+                A professional automotive business website designed
+                to present workshop services, capabilities, customer
+                information, workshop visuals, and appointment
+                requests through a modern responsive interface.
+              </p>
+
+              <div class="project-tech">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Responsive UI</span>
+              </div>
+
+              <a
+                href="https://1mmfazil.freedev.app/?i=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+              >
+                View Live Project ↗
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 03 -->
+
+          <article class="project-card reveal">
+
+            <div class="project-number">
+              03
+            </div>
+
+            <div class="project-content">
+
+              <span class="project-category">
+                AI-Assisted Application
+              </span>
+
+              <h3>
+                Application Project
+              </h3>
+
+              <p>
+                An application developed with AI-assisted tools.
+                Project details, technical implementation, and
+                my contribution will be documented here after
+                the project is reviewed and finalized.
+              </p>
+
+              <div class="project-tech">
+                <span>AI-Assisted</span>
+                <span>Web Application</span>
+              </div>
+
+              <span class="project-note">
+                Details coming soon
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 04 -->
+
+          <article class="project-card reveal">
+
+            <div class="project-number">
+              04
+            </div>
+
+            <div class="project-content">
+
+              <span class="project-category">
+                Currently In Development
+              </span>
+
+              <h3>
+                Upcoming Project
+              </h3>
+
+              <p>
+                A new website currently under development.
+                The project will be added here after development,
+                testing, and final refinement are complete.
+              </p>
+
+              <div class="project-tech">
+                <span>Coming Soon</span>
+              </div>
+
+              <span class="project-note">
+                Development in progress
+              </span>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         DEVELOPMENT JOURNEY
+    ====================================================== -->
+
+    <section class="section" id="journey">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">Development Journey</span>
+          <h2>Building my foundation.</h2>
+          <p>
+            My journey is focused on turning academic learning
+            into practical development experience.
+          </p>
+        </div>
+
+
+        <div class="journey-wrapper">
+
+          <div class="journey-item reveal">
+
+            <div class="journey-date">
+              2026 — Present
+            </div>
+
+            <h3>
+              B.Tech CSE Student & Independent Developer
+            </h3>
+
+            <p>
+              Building a stronger foundation in programming,
+              web development, software concepts, and practical
+              problem solving through personal projects.
+            </p>
+
+          </div>
+
+
+          <div class="journey-item reveal">
+
+            <div class="journey-date">
+              Current Focus
+            </div>
+
+            <h3>
+              Web Development
+            </h3>
+
+            <p>
+              Strengthening HTML, CSS, and JavaScript while
+              building responsive interfaces and real-world
+              websites.
+            </p>
+
+          </div>
+
+
+          <div class="journey-item reveal">
+
+            <div class="journey-date">
+              Next Stage
+            </div>
+
+            <h3>
+              Expanding Software Development Skills
+            </h3>
+
+            <p>
+              Continuing toward JavaScript applications,
+              APIs, databases, backend development, and
+              modern software development practices.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         EDUCATION
+    ====================================================== -->
+
+    <section class="section education" id="education">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">Education</span>
+          <h2>Where I'm learning.</h2>
+        </div>
+
+        <div class="education-card reveal">
+
+          <div class="education-label">
+            Undergraduate
+          </div>
+
+          <h3>
+            Bachelor of Technology
+          </h3>
+
+          <div class="institution">
+            Computer Science Engineering • JB Groups of Institutions
+          </div>
+
+          <p>
+            Currently pursuing my B.Tech degree and developing
+            practical skills alongside my academic studies.
+          </p>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         CONTACT
+    ====================================================== -->
+
+    <section class="section" id="contact">
+      <div class="container">
+
+        <div class="contact-grid">
+
+          <div class="reveal">
+
+            <span class="eyebrow">
+              Contact
+            </span>
+
+            <h2 class="contact-title">
+              Let's build something meaningful.
+            </h2>
+
+            <p class="contact-description">
+              I'm always interested in learning, collaborating,
+              discussing technology, and exploring opportunities
+              to grow as a developer.
+            </p>
+
+            <div class="contact-links">
+
+              <a
+                class="contact-link"
+                href="mailto:MD.fazil2407@gmail.com"
+              >
+                ✉
+                MD.fazil2407@gmail.com
+              </a>
+
+            </div>
+
+          </div>
+
+
+          <form
+            class="contact-form reveal"
+            id="contactForm"
+          >
+
+            <div class="form-group">
+              <label for="name">
+                YOUR NAME
+              </label>
+
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your name"
+                required
+              />
+            </div>
+
+
+            <div class="form-group">
+              <label for="email">
+                YOUR EMAIL
+              </label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+
+
+            <div class="form-group">
+              <label for="message">
+                MESSAGE
+              </label>
+
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Write your message..."
+                required
+              ></textarea>
+            </div>
+
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              Open Email →
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
+
+  <footer>
+
+    <div class="container footer-content">
+
+      <p class="footer-brand">
+        Mohamed Fazil
+      </p>
+
+      <p>
+        © <span id="year"></span>
+        Mohamed Fazil. Built while learning and growing.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+
+  <script>
+
+    /* =======================================================
+       MOBILE MENU
+    ======================================================== */
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+
+      const isOpen = navLinks.classList.toggle("active");
+
+      menuToggle.setAttribute(
+        "aria-expanded",
+        isOpen
+      );
+
+    });
+
+
+    /* Close mobile menu after clicking a link */
+
+    document
+      .querySelectorAll(".nav-links a")
+      .forEach((link) => {
+
+        link.addEventListener("click", () => {
+
+          navLinks.classList.remove("active");
+
+          menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        });
+
+      });
+
+
+    /* =======================================================
+       HEADER ON SCROLL
+    ======================================================== */
+
+    const header = document.getElementById("header");
+
+    window.addEventListener("scroll", () => {
+
+      if (window.scrollY > 30) {
+
+        header.classList.add("scrolled");
+
+      } else {
+
+        header.classList.remove("scrolled");
+
+      }
+
+    });
+
+
+    /* =======================================================
+       REVEAL ANIMATION
+    ======================================================== */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+    const revealObserver =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("active");
+
+              revealObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    revealElements.forEach((element) => {
+
+      revealObserver.observe(element);
+
+    });
+
+
+    /* =======================================================
+       CONTACT FORM
+    ======================================================== */
+
+    const contactForm =
+      document.getElementById("contactForm");
+
+    contactForm.addEventListener("submit", (event) => {
+
+      event.preventDefault();
+
+      const name =
+        document.getElementById("name").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const message =
+        document.getElementById("message").value.trim();
+
+
+      const subject =
+        encodeURIComponent(
+          `Portfolio Contact from ${name}`
+        );
+
+      const body =
+        encodeURIComponent(
+          `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+        );
+
+
+      window.location.href =
+        `mailto:MD.fazil2407@gmail.com?subject=${subject}&body=${body}`;
+
+    });
+
+
+    /* =======================================================
+       CURRENT YEAR
+    ======================================================== */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+</body>
+</html>
