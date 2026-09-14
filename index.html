@@ -153,8 +153,12 @@
   );
   filter: blur(12px);
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
   animation: sectionAmbient 14s ease-in-out infinite;
+}
+    .section > * {
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes sectionAmbient {
@@ -578,7 +582,7 @@ animation: gridDrift 18s linear infinite;
   );
   filter: blur(10px);
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
 }
 
     .about-grid {
@@ -643,7 +647,7 @@ animation: gridDrift 18s linear infinite;
   );
   filter: blur(12px);
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
   animation: skillsAmbient 17s ease-in-out infinite;
 }
 
@@ -869,14 +873,21 @@ animation: gridDrift 18s linear infinite;
       display: inline-flex;
       align-items: center;
       gap: 7px;
+      margin-top: 24px;
       color: #ffffff;
       font-size: 0.85rem;
       font-weight: 600;
-      transition: 0.2s ease;
+      text-decoration: none;
+      transition:
+        color 0.25s ease,
+    transform 0.25s ease,
+    text-shadow 0.25s ease;
     }
 
     .project-link:hover {
       color: var(--accent);
+         transform: translateX(3px);
+  text-shadow: 0 0 14px rgba(255, 77, 61, 0.25);
     }
 
     .project-note {
@@ -909,7 +920,7 @@ animation: gridDrift 18s linear infinite;
   );
   filter: blur(12px);
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
   animation: journeyAmbient 18s ease-in-out infinite;
 }
 
@@ -1011,7 +1022,7 @@ animation: gridDrift 18s linear infinite;
   );
   filter: blur(12px);
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
 }
 
     .education-card {
@@ -1121,7 +1132,7 @@ animation: gridDrift 18s linear infinite;
   );
   filter: blur(12px);
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
   animation: contactAmbient 15s ease-in-out infinite;
 }
 
@@ -1750,9 +1761,11 @@ animation: gridDrift 18s linear infinite;
               <span class="project-category">
                  Live Website
               </span>
+              
+              <span class="project-verified">LIVE PROJECT</span>
 
               <h3>
-                1mmfazil.is-great.org
+                1MM Fazil web project
               </h3>
 
               <p>
