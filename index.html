@@ -61,6 +61,22 @@
       scroll-behavior: smooth;
     }
 
+   #portfolio-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.72;
+}
+    header,
+main,
+footer,
+section {
+  position: relative;
+  z-index: 1;
+}
     body {
       font-family: "Inter", sans-serif;
       background: #090909;
@@ -1433,6 +1449,7 @@ animation: gridDrift 18s linear infinite;
 </head>
 
 <body>
+  <canvas id="portfolio-bg" aria-hidden="true"></canvas>
 
   <!-- =======================================================
        HEADER
@@ -2774,5 +2791,299 @@ identityGroup.add(statusLabel);
   }
 </script>
 
+  <script>
+(() => {
+  const canvas = document.getElementById("portfolio-bg");
+
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  let width = 0;
+  let height = 0;
+  let dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+
+  let scrollY = window.scrollY;
+  let targetScrollY = scrollY;
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const particles = [];
+  const particleCount = window.innerWidth < 700 ? 70 : 125;
+
+  const glowPoints = [
+   { x: 0.18, y: 0.28, radius: 260, alpha: 0.075 },
+  { x: 0.82, y: 0.62, radius: 300, alpha: 0.065 },
+  { x: 0.52, y: 0.92, radius: 250, alpha: 0.05 }
+  ];
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    createParticles();
+  }
+
+  function createParticles() {
+    particles.length = 0;
+
+    const count = reducedMotion
+      ? Math.floor(particleCount * 0.55)
+      : particleCount;
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 1.6 + 0.4,
+        speed: Math.random() * 0.16 + 0.04,
+        drift: Math.random() * 0.5 + 0.1,
+        phase: Math.random() * Math.PI * 2,
+        depth: Math.random()
+      });
+    }
+  }
+
+  function drawGlow(x, y, radius, alpha) {
+    const gradient = ctx.createRadialGradient(
+      x,
+      y,
+      0,
+      x,
+      y,
+      radius
+    );
+
+    gradient.addColorStop(
+      0,
+      `rgba(255, 77, 61, ${alpha})`
+    );
+
+    gradient.addColorStop(
+      0.42,
+      `rgba(255, 77, 61, ${alpha * 0.34})`
+    );
+
+    gradient.addColorStop(
+      1,
+      "rgba(255, 77, 61, 0)"
+    );
+
+    ctx.fillStyle = gradient;
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawParticles(time, scrollOffset) {
+    for (const particle of particles) {
+      const driftX =
+        Math.sin(
+          time * particle.speed +
+          particle.phase
+        ) * particle.drift;
+
+      const driftY =
+        Math.cos(
+          time * particle.speed * 0.7 +
+          particle.phase
+        ) * particle.drift;
+
+      const parallax =
+        scrollOffset *
+        (0.035 + particle.depth * 0.055);
+      let x = particle.x + driftX;
+      let y = particle.y + driftY - parallax;
+
+      if (y < -10) y += height + 20;
+      if (y > height + 10) y -= height + 20;
+
+      if (x < -10) x += width + 20;
+      if (x > width + 10) x -= width + 20;
+
+      const opacity =
+        0.12 +
+        particle.depth * 0.32;
+
+      ctx.fillStyle =
+        `rgba(255, 150, 130, ${opacity})`;
+
+      ctx.beginPath();
+      ctx.arc(
+        x,
+        y,
+        particle.size,
+        0,
+        Math.PI * 2
+      );
+      ctx.fill();
+    }
+  }
+
+  function drawOrbit(time, scrollOffset) {
+    const centerX = width * 0.78;
+    const baseY = height * 0.58;
+
+    const shift =
+      (scrollOffset % 420) * 0.08;
+
+    ctx.save();
+
+    ctx.translate(centerX, baseY + shift);
+
+    ctx.rotate(
+      -0.18 + Math.sin(time * 0.00025) * 0.03
+    );
+
+    const orbitAngle =
+  time * 0.00018 +
+  scrollOffset * 0.0007;
+
+ctx.rotate(orbitAngle);
+    
+    for (let i = 0; i < 3; i++) {
+      const radiusX = 170 + i * 58;
+      const radiusY = 42 + i * 18;
+
+      ctx.strokeStyle =
+        `rgba(255, 77, 61, ${0.045 - i * 0.009})`;
+
+      ctx.lineWidth = 1;
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        0,
+        0,
+        radiusX,
+        radiusY,
+        0,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.stroke();
+    }
+
+    const lightX =
+      Math.cos(time * 0.0009) * 210;
+
+    const lightY =
+      Math.sin(time * 0.0009) * 55;
+
+    const lightGradient =
+      ctx.createRadialGradient(
+        lightX,
+        lightY,
+        0,
+        lightX,
+        lightY,
+        20
+      );
+
+    lightGradient.addColorStop(
+      0,
+      "rgba(255, 145, 125, 0.5)"
+    );
+
+    lightGradient.addColorStop(
+      1,
+      "rgba(255, 77, 61, 0)"
+    );
+
+    ctx.fillStyle = lightGradient;
+
+    ctx.beginPath();
+    ctx.arc(
+      lightX,
+      lightY,
+      20,
+      0,
+      Math.PI * 2
+    );
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  let startTime = performance.now();
+
+  function animate(now) {
+    const elapsed =
+      now - startTime;
+
+    scrollY +=
+      (targetScrollY - scrollY) * 0.08;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    glowPoints.forEach((point, index) => {
+      const movement =
+        Math.sin(
+          elapsed * 0.00015 +
+          index * 1.7
+        ) * 28;
+
+      const scrollMovement =
+        scrollY *
+        (0.025 + index * 0.012);
+
+      drawGlow(
+        width * point.x + movement,
+        height * point.y - scrollMovement,
+        point.radius,
+        point.alpha
+      );
+    });
+
+    drawParticles(
+      elapsed,
+      scrollY
+    );
+
+    drawOrbit(
+      elapsed,
+      scrollY
+    );
+
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      targetScrollY = window.scrollY;
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+  resize();
+
+  requestAnimationFrame(animate);
+})();
+</script>
 </body>
 </html>
