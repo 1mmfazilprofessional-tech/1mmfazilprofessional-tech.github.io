@@ -312,7 +312,51 @@ animation: gridDrift 18s linear infinite;
       pointer-events: none;
       animation:ambientGlowReverse 12s ease-in-out infinite;
     }
+    .hero-3d {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  width: min(48vw, 620px);
+  height: min(48vw, 620px);
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
 
+.hero-3d canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .hero-3d {
+    right: -8%;
+    width: 58vw;
+    height: 58vw;
+    opacity: .8;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-3d {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(88vw, 460px);
+    height: min(88vw, 460px);
+    transform: none;
+    margin: 10px auto 35px;
+    order: 2;
+    opacity: .9;
+  }
+
+  .hero-content {
+    z-index: 2;
+  }
+}
+    
     .hero-content {
       position: relative;
       z-index: 2;
@@ -1064,6 +1108,7 @@ animation: gridDrift 18s linear infinite;
   <main>
 
     <section class="hero" id="home">
+      <div class="hero-3d" id="hero3d" aria-hidden="true"></div>
       <div class="container">
 
         <div class="hero-content reveal">
@@ -1824,7 +1869,535 @@ once it is ready for presentation.
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
-  </script>
+    </script>
+
+<!-- THREE.JS 3D HERO -->
+<script type="module">
+  import * as THREE from "three";
+
+  const container = document.getElementById("hero3d");
+
+  if (container) {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      38,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      100
+    );
+
+    camera.position.set(0, 0, 8);
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance"
+    });
+
+    renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio, 1.8)
+    );
+
+    renderer.setSize(
+      container.clientWidth,
+      container.clientHeight,
+      false
+    );
+
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setClearColor(0x000000, 0);
+
+    container.appendChild(renderer.domElement);
+
+    /* ---------- LIGHTING ---------- */
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.PointLight(0xff4d3d, 18, 18);
+    keyLight.position.set(3.5, 2.5, 4);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.PointLight(0xff8a78, 8, 14);
+    fillLight.position.set(-4, -2, 3);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.PointLight(0xffffff, 6, 12);
+    rimLight.position.set(0, 4, -3);
+    scene.add(rimLight);
+
+    /* ---------- MAIN DEVELOPER CORE ---------- */
+
+    const coreGroup = new THREE.Group();
+    scene.add(coreGroup);
+
+    const coreGeometry = new THREE.IcosahedronGeometry(1.45, 2);
+
+    const coreMaterial = new THREE.MeshStandardMaterial({
+      color: 0x151515,
+      metalness: 0.92,
+      roughness: 0.24,
+      emissive: 0x2a0b08,
+      emissiveIntensity: 0.8
+    });
+
+    const core = new THREE.Mesh(
+      coreGeometry,
+      coreMaterial
+    );
+
+    coreGroup.add(core);
+
+    /* ---------- INNER GLOW ---------- */
+
+    const glowGeometry = new THREE.IcosahedronGeometry(1.57, 2);
+
+    const glowMaterial = new THREE.MeshBasicMaterial({
+      color: 0xff4d3d,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.12
+    });
+
+    const glow = new THREE.Mesh(
+      glowGeometry,
+      glowMaterial
+    );
+
+    coreGroup.add(glow);
+
+    /* ---------- WIREFRAME DETAIL ---------- */
+
+    const wireGeometry = new THREE.IcosahedronGeometry(1.7, 1);
+
+    const wireMaterial = new THREE.MeshBasicMaterial({
+      color: 0xff6a5a,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.26
+    });
+
+    const wire = new THREE.Mesh(
+      wireGeometry,
+      wireMaterial
+    );
+
+    coreGroup.add(wire);
+
+    /* ---------- ORBITAL RINGS ---------- */
+
+    const ringGroup = new THREE.Group();
+    scene.add(ringGroup);
+
+    const ringMaterialA = new THREE.MeshBasicMaterial({
+      color: 0xff4d3d,
+      transparent: true,
+      opacity: 0.42
+    });
+
+    const ringMaterialB = new THREE.MeshBasicMaterial({
+      color: 0xff9a8f,
+      transparent: true,
+      opacity: 0.18
+    });
+
+    const ring1 = new THREE.Mesh(
+      new THREE.TorusGeometry(2.05, 0.018, 12, 160),
+      ringMaterialA
+    );
+
+    const ring2 = new THREE.Mesh(
+      new THREE.TorusGeometry(2.42, 0.012, 12, 160),
+      ringMaterialB
+    );
+
+    const ring3 = new THREE.Mesh(
+      new THREE.TorusGeometry(2.82, 0.009, 12, 160),
+      ringMaterialA
+    );
+
+    ring1.rotation.x = Math.PI * 0.28;
+    ring1.rotation.y = Math.PI * 0.15;
+
+    ring2.rotation.x = Math.PI * 0.58;
+    ring2.rotation.z = Math.PI * 0.18;
+
+    ring3.rotation.y = Math.PI * 0.66;
+    ring3.rotation.z = Math.PI * 0.24;
+
+    ringGroup.add(ring1, ring2, ring3);
+
+    /* ---------- ORBITING DEVELOPER MODULES ---------- */
+
+    const moduleGroup = new THREE.Group();
+    scene.add(moduleGroup);
+
+    const moduleMaterial = new THREE.MeshStandardMaterial({
+      color: 0x202020,
+      metalness: 0.8,
+      roughness: 0.28,
+      emissive: 0x130504,
+      emissiveIntensity: 0.55
+    });
+
+    const moduleGlowMaterial = new THREE.MeshBasicMaterial({
+      color: 0xff4d3d,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35
+    });
+
+    const modules = [];
+
+    const modulePositions = [
+      [2.35, 0.55, 0.2],
+      [-2.25, 0.95, -0.35],
+      [1.85, -1.35, 0.25],
+      [-1.65, -1.15, 0.15],
+      [0.25, 2.35, -0.55],
+      [-0.4, -2.35, -0.25]
+    ];
+
+    modulePositions.forEach((position, index) => {
+      const size = index % 2 === 0 ? 0.28 : 0.22;
+
+      const group = new THREE.Group();
+
+      const box = new THREE.Mesh(
+        new THREE.BoxGeometry(size, size, size),
+        moduleMaterial
+      );
+
+      const boxGlow = new THREE.Mesh(
+        new THREE.BoxGeometry(size * 1.18, size * 1.18, size * 1.18),
+        moduleGlowMaterial
+      );
+
+      group.add(box, boxGlow);
+
+      group.position.set(
+        position[0],
+        position[1],
+        position[2]
+      );
+
+      moduleGroup.add(group);
+      modules.push(group);
+    });
+
+    /* ---------- PARTICLE FIELD ---------- */
+
+    const particleCount = window.innerWidth < 700 ? 180 : 360;
+
+    const particlePositions = new Float32Array(
+      particleCount * 3
+    );
+
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+
+      particlePositions[i3] =
+        (Math.random() - 0.5) * 9;
+
+      particlePositions[i3 + 1] =
+        (Math.random() - 0.5) * 8;
+
+      particlePositions[i3 + 2] =
+        (Math.random() - 0.5) * 7;
+    }
+
+    const particleGeometry = new THREE.BufferGeometry();
+
+    particleGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(
+        particlePositions,
+        3
+      )
+    );
+
+    const particleMaterial = new THREE.PointsMaterial({
+      color: 0xff6a5a,
+      size: 0.025,
+      transparent: true,
+      opacity: 0.55,
+      sizeAttenuation: true
+    });
+
+    const particles = new THREE.Points(
+      particleGeometry,
+      particleMaterial
+    );
+
+    scene.add(particles);
+
+    /* ---------- ANIMATION ---------- */
+    /* ---------- 3D DEVELOPER IDENTITY ---------- */
+
+function createTextSprite(text, options = {}) {
+  const {
+    fontSize = 42,
+    textColor = "#ff8a78",
+    backgroundColor = "rgba(12, 12, 12, 0.86)",
+    borderColor = "rgba(255, 77, 61, 0.35)",
+    padding = 18
+  } = options;
+
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+
+  context.font =
+    `700 ${fontSize}px Arial, sans-serif`;
+
+  const textWidth = context.measureText(text).width;
+
+  canvas.width = textWidth + padding * 2;
+  canvas.height = fontSize + padding * 2;
+
+  context.font =
+    `700 ${fontSize}px Arial, sans-serif`;
+
+  context.fillStyle = backgroundColor;
+
+  context.beginPath();
+  context.roundRect(
+    2,
+    2,
+    canvas.width - 4,
+    canvas.height - 4,
+    14
+  );
+  context.fill();
+
+  context.strokeStyle = borderColor;
+  context.lineWidth = 2;
+  context.stroke();
+
+  context.fillStyle = textColor;
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+
+  context.fillText(
+    text,
+    canvas.width / 2,
+    canvas.height / 2
+  );
+
+  const texture = new THREE.CanvasTexture(canvas);
+
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+
+  const material = new THREE.SpriteMaterial({
+    map: texture,
+    transparent: true,
+    depthWrite: false
+  });
+
+  const sprite = new THREE.Sprite(material);
+
+  sprite.scale.set(
+    canvas.width / 220,
+    canvas.height / 220,
+    1
+  );
+
+  return sprite;
+}
+
+/* Main identity */
+
+const identityGroup = new THREE.Group();
+scene.add(identityGroup);
+
+const identity = createTextSprite("1MM FAZIL", {
+  fontSize: 52,
+  textColor: "#ffffff",
+  backgroundColor: "rgba(10, 10, 10, 0.92)",
+  borderColor: "rgba(255, 77, 61, 0.55)",
+  padding: 22
+});
+
+identity.position.set(0, 0, 1.8);
+identity.scale.multiplyScalar(1.15);
+
+identityGroup.add(identity);
+
+/* Developer technology labels */
+
+const techLabels = [
+  {
+    text: "</>",
+    position: [2.7, 1.05, 0.7]
+  },
+  {
+    text: "HTML",
+    position: [-2.7, 1.25, 0.25]
+  },
+  {
+    text: "CSS",
+    position: [2.25, -1.55, 0.5]
+  },
+  {
+    text: "JS",
+    position: [-2.25, -1.45, 0.35]
+  },
+  {
+    text: "PYTHON",
+    position: [0.45, 2.55, -0.25]
+  },
+  {
+    text: "JAVA",
+    position: [-0.55, -2.55, -0.1]
+  }
+];
+
+techLabels.forEach((item, index) => {
+  const label = createTextSprite(item.text, {
+    fontSize: index === 4 || index === 5 ? 34 : 38,
+    textColor: index % 2 === 0 ? "#ff8a78" : "#f0f0f0",
+    backgroundColor: "rgba(10, 10, 10, 0.72)",
+    borderColor: "rgba(255, 77, 61, 0.24)",
+    padding: 14
+  });
+
+  label.position.set(
+    item.position[0],
+    item.position[1],
+    item.position[2]
+  );
+
+  label.userData.baseY = item.position[1];
+  label.userData.offset = index * 0.8;
+
+  identityGroup.add(label);
+});
+
+/* Small status label */
+
+const statusLabel = createTextSprite(
+  "ONLINE • BUILDING",
+  {
+    fontSize: 28,
+    textColor: "#8fe3a0",
+    backgroundColor: "rgba(8, 12, 9, 0.82)",
+    borderColor: "rgba(83, 215, 105, 0.28)",
+    padding: 12
+  }
+);
+
+statusLabel.position.set(0, -3.25, 0.2);
+identityGroup.add(statusLabel);
+
+    let time = 0;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (!prefersReducedMotion) {
+        time += 0.008;
+
+        coreGroup.rotation.y += 0.0035;
+        coreGroup.rotation.x =
+          Math.sin(time * 0.7) * 0.08;
+
+        glow.rotation.y -= 0.002;
+        wire.rotation.z += 0.0018;
+
+        ring1.rotation.z += 0.002;
+        ring2.rotation.x -= 0.0017;
+        ring3.rotation.y += 0.0014;
+        
+         identityGroup.rotation.y -= 0.0008;
+
+        identityGroup.children.forEach((item) => {
+          if (item.userData.baseY !== undefined) {
+            item.position.y =
+              item.userData.baseY +
+              Math.sin(time * 1.1 + item.userData.offset) * 0.035;
+          }
+        });
+
+          const pulse =
+          0.92 + Math.sin(time * 1.8) * 0.04;
+
+        core.scale.setScalar(pulse);
+
+        glow.material.opacity =
+          0.10 + Math.sin(time * 1.5) * 0.035;
+
+        wire.material.opacity =
+          0.22 + Math.sin(time * 1.2) * 0.05;
+
+        keyLight.intensity =
+          17 + Math.sin(time * 1.6) * 2;
+
+        fillLight.intensity =
+          7 + Math.sin(time * 1.25) * 1.2;
+
+        camera.position.x =
+          Math.sin(time * 0.35) * 0.04;
+
+        camera.position.y =
+          Math.cos(time * 0.3) * 0.035;
+
+        camera.lookAt(0, 0, 0);
+
+        moduleGroup.rotation.y += 0.0022;
+        moduleGroup.rotation.x =
+          Math.sin(time * 0.45) * 0.025;
+
+        particles.rotation.y += 0.00035;
+        particles.rotation.x += 0.00012;
+
+        const floatOffset =
+          Math.sin(time * 1.15) * 0.08;
+
+        coreGroup.position.y = floatOffset;
+
+        ringGroup.position.y =
+          floatOffset * 0.65;
+
+        moduleGroup.position.y =
+          floatOffset * 0.55;
+
+        modules.forEach((module, index) => {
+          module.rotation.x += 0.004 + index * 0.0003;
+          module.rotation.y -= 0.003 + index * 0.0002;
+        });
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+
+    function resizeScene() {
+      camera.position.z =
+    window.innerWidth < 700 ? 8.8 : 8;
+      
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      if (!width || !height) return;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(width, height, false);
+    }
+
+    window.addEventListener("resize", resizeScene);
+
+    resizeScene();
+    animate();
+  }
+</script>
 
 </body>
 </html>
