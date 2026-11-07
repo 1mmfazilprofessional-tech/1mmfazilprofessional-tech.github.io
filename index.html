@@ -1891,6 +1891,122 @@ animation: gridDrift 18s linear infinite;
       }
     }
 
+
+    /* =========================================================
+       CINEMATIC THREE-SCENE INTRO — before the original portfolio
+    ========================================================= */
+    #cinematic-intro {
+      position: fixed; inset: 0; z-index: 3000; overflow: hidden;
+      display: grid; place-items: center; background: #070707;
+      color: #f7f4f2; isolation: isolate;
+      opacity: 1; visibility: visible;
+      transition: opacity 1.15s cubic-bezier(.22,.7,.2,1), visibility 1.15s;
+    }
+    #cinematic-intro.is-finished { opacity: 0; visibility: hidden; pointer-events: none; }
+    #cinematic-intro .intro-scene {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      padding: clamp(24px,5vw,72px); opacity: 0; visibility: hidden;
+      transform: scale(1.035); transition: opacity 1s ease, transform 1.8s cubic-bezier(.2,.7,.2,1), visibility 1s;
+      background:
+        radial-gradient(ellipse at 50% 56%, rgba(255,77,61,.13), transparent 44%),
+        linear-gradient(135deg,#080808 0%,#101010 55%,#080808 100%);
+    }
+    #cinematic-intro .intro-scene.is-active { opacity: 1; visibility: visible; transform: scale(1); }
+    #cinematic-intro .intro-scene::before {
+      content:""; position:absolute; inset:-30%; pointer-events:none; opacity:.3;
+      background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+      background-size:58px 58px; transform:perspective(700px) rotateX(62deg) scale(1.5) translateY(18%);
+      mask-image:linear-gradient(transparent,black 32%,transparent 88%);
+      animation:intro-grid 18s linear infinite;
+    }
+    @keyframes intro-grid { to { background-position:58px 58px; } }
+    .intro-noise { position:absolute; inset:0; pointer-events:none; opacity:.15; background-image:radial-gradient(rgba(255,255,255,.55) .6px,transparent .8px); background-size:5px 5px; mask-image:linear-gradient(transparent,black,transparent); }
+    .intro-kicker { color:#ff796b; font:700 .7rem "JetBrains Mono",monospace; letter-spacing:.28em; text-transform:uppercase; }
+    .intro-name { margin-top:15px; font:700 clamp(2.8rem,8.4vw,7.7rem)/.92 "Space Grotesk",sans-serif; letter-spacing:-.075em; text-shadow:0 8px 42px rgba(0,0,0,.7); }
+    .intro-name span { color:#ff604f; }
+    .intro-role { margin-top:18px; color:#c1bdbb; font:500 clamp(.85rem,1.7vw,1.15rem) "Inter",sans-serif; letter-spacing:.22em; text-transform:uppercase; }
+    .intro-scene-one .intro-layout { position:relative; z-index:2; width:min(1120px,100%); display:grid; grid-template-columns:1fr 1.05fr; align-items:center; gap:clamp(18px,5vw,80px); }
+    .intro-portrait-wrap { position:relative; min-height:min(66vh,620px); display:grid; place-items:center; perspective:1000px; }
+    .intro-portrait-wrap::before { content:""; position:absolute; width:min(34vw,390px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(255,77,61,.24),rgba(255,77,61,.035) 48%,transparent 72%); filter:blur(12px); animation:portrait-pulse 4s ease-in-out infinite; }
+    @keyframes portrait-pulse { 50% { transform:scale(1.16); opacity:.65; } }
+    .intro-portrait { position:relative; width:min(100%,480px); max-height:68vh; overflow:visible; filter:drop-shadow(0 32px 34px rgba(0,0,0,.7)); animation:portrait-float 6s ease-in-out infinite; transform-style:preserve-3d; }
+    @keyframes portrait-float { 50% { transform:translateY(-12px) rotateY(-4deg); } }
+    .intro-portrait .portrait-rim { animation:rim-glow 3s ease-in-out infinite alternate; }
+    @keyframes rim-glow { to { opacity:.95; filter:drop-shadow(0 0 18px rgba(255,77,61,.8)); } }
+    .intro-orbit { position:absolute; width:min(42vw,480px); aspect-ratio:1; border:1px solid rgba(255,100,82,.25); border-radius:50%; transform:rotateX(68deg) rotateZ(-18deg); box-shadow:0 0 32px rgba(255,77,61,.08),inset 0 0 24px rgba(255,77,61,.06); animation:orbit-spin 16s linear infinite; }
+    .intro-orbit::after { content:""; position:absolute; width:9px; height:9px; border-radius:50%; background:#ff796b; box-shadow:0 0 22px #ff4d3d; left:12%; top:22%; }
+    @keyframes orbit-spin { to { transform:rotateX(68deg) rotateZ(342deg); } }
+    .intro-caption { margin-top:26px; max-width:480px; color:#9e9997; font-size:clamp(.9rem,1.4vw,1.04rem); line-height:1.8; }
+    .intro-index { position:absolute; z-index:4; bottom:30px; left:clamp(24px,5vw,72px); color:#716b69; font:600 .68rem "JetBrains Mono",monospace; letter-spacing:.2em; }
+    .intro-progress { position:absolute; z-index:5; bottom:0; left:0; height:2px; width:100%; background:rgba(255,255,255,.08); }
+    .intro-progress span { display:block; width:0; height:100%; background:linear-gradient(90deg,#d93629,#ff8a78); box-shadow:0 0 15px #ff4d3d; }
+    .intro-scene.is-active .intro-progress span { animation:intro-progress 5.2s linear forwards; }
+    @keyframes intro-progress { to { width:100%; } }
+
+    /* Scene 2 — human / machine connection */
+    .intro-scene-two { background:radial-gradient(ellipse at 50% 55%,rgba(255,77,61,.16),transparent 43%),#080808 !important; }
+    .hands-stage { position:relative; z-index:2; width:min(1050px,100%); text-align:center; }
+    .hands-stage h2 { margin:12px 0 0; font:600 clamp(1.8rem,4.2vw,3.8rem)/1.05 "Space Grotesk",sans-serif; letter-spacing:-.05em; }
+    .hands-stage h2 span { color:#ff6a59; }
+    .hands-svg { display:block; width:min(900px,100%); height:auto; margin:0 auto; overflow:visible; filter:drop-shadow(0 24px 34px rgba(0,0,0,.6)); }
+    .hand-human { animation:human-reach 3.2s ease-in-out infinite alternate; transform-origin:95% 50%; }
+    .hand-robot { animation:robot-reach 3.2s ease-in-out infinite alternate; transform-origin:5% 50%; }
+    @keyframes human-reach { to { transform:translateX(22px) rotate(-1deg); } }
+    @keyframes robot-reach { to { transform:translateX(-22px) rotate(1deg); } }
+    .contact-spark { transform-origin:center; animation:spark-flash 1.9s ease-in-out infinite; }
+    @keyframes spark-flash { 0%,100% { opacity:.25; transform:scale(.65); } 42% { opacity:1; transform:scale(1.2); } 52% { opacity:.9; transform:scale(1); } }
+    .spark-rays { animation:spark-rotate 12s linear infinite; transform-origin:450px 190px; }
+    @keyframes spark-rotate { to { transform:rotate(360deg); } }
+    .hands-note { margin:18px auto 0; color:#a8a09e; font-size:.9rem; letter-spacing:.08em; }
+
+    /* Scene 3 — product engineering / live interface */
+    .intro-scene-three { background:radial-gradient(ellipse at 55% 52%,rgba(255,77,61,.13),transparent 48%),#080808 !important; }
+    .dev-stage { position:relative; z-index:2; width:min(1120px,100%); text-align:center; }
+    .dev-stage h2 { margin:12px 0 10px; font:700 clamp(2rem,5.4vw,4.8rem)/1 "Space Grotesk",sans-serif; letter-spacing:-.065em; }
+    .dev-stage h2 span { color:#ff604f; }
+    .dev-subtitle { color:#a7a19f; font-size:clamp(.8rem,1.5vw,1rem); }
+    .dev-workspace { position:relative; display:grid; grid-template-columns:1.12fr .88fr; gap:14px; margin:clamp(24px,4vw,42px) auto 0; width:min(100%,970px); perspective:1300px; text-align:left; }
+    .dev-window { min-width:0; border:1px solid rgba(255,255,255,.12); border-radius:15px; overflow:hidden; background:linear-gradient(145deg,rgba(25,27,29,.97),rgba(10,11,12,.98)); box-shadow:0 32px 85px rgba(0,0,0,.55),0 0 35px rgba(255,77,61,.09); transform:rotateY(5deg) rotateX(2deg); animation:window-hover 6s ease-in-out infinite; }
+    .dev-window.preview { transform:rotateY(-6deg) rotateX(2deg); animation-delay:-2s; }
+    @keyframes window-hover { 50% { translate:0 -9px; } }
+    .dev-bar { height:38px; display:flex; align-items:center; gap:7px; padding:0 13px; border-bottom:1px solid rgba(255,255,255,.08); background:#17191b; color:#8d9295; font:600 .62rem "JetBrains Mono",monospace; }
+    .dev-dot { width:7px; height:7px; border-radius:50%; background:#ff6758; box-shadow:12px 0 #e8b36d,24px 0 #70bd88; margin-right:24px; }
+    .dev-code { padding:clamp(12px,2.2vw,24px); color:#d4d9dc; font:500 clamp(.57rem,1.1vw,.78rem)/1.9 "JetBrains Mono",monospace; white-space:nowrap; }
+    .dev-code .ln { display:inline-block; width:22px; color:#626a70; }
+    .dev-code .kw { color:#ff927f; } .dev-code .fn { color:#e8c17a; } .dev-code .str { color:#a6d49b; } .dev-code .dim { color:#858d92; }
+    .dev-preview { min-height:230px; padding:clamp(14px,2vw,23px); background:radial-gradient(circle at 90% 0,rgba(255,77,61,.13),transparent 40%),#101315; }
+    .preview-nav { display:flex; align-items:center; justify-content:space-between; color:#f5f5f5; font:700 .7rem "Space Grotesk",sans-serif; }
+    .preview-nav b { color:#ff7565; }
+    .preview-hero { margin-top:28px; padding:17px; border-radius:10px; background:linear-gradient(120deg,rgba(255,77,61,.18),rgba(255,255,255,.035)); border:1px solid rgba(255,255,255,.08); }
+    .preview-hero strong { display:block; max-width:230px; color:#fff; font:700 clamp(1rem,2vw,1.55rem)/1.1 "Space Grotesk",sans-serif; }
+    .preview-hero small { display:block; margin-top:9px; color:#a9b0b2; font-size:.62rem; }
+    .preview-cta { display:inline-block; margin-top:14px; padding:7px 11px; border-radius:6px; background:#ff604f; color:#fff; font-size:.58rem; font-weight:700; }
+    .preview-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-top:11px; }
+    .preview-cards i { display:block; height:33px; border:1px solid rgba(255,255,255,.08); border-radius:6px; background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,77,61,.08)); }
+    .dev-stack { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:20px; }
+    .dev-stack span { padding:7px 11px; border:1px solid rgba(255,105,88,.24); border-radius:999px; background:rgba(255,77,61,.07); color:#d7cecb; font:600 .65rem "JetBrains Mono",monospace; }
+    .dev-stack span:first-child { color:#ff897a; }
+    .intro-final-line { margin-top:19px; color:#8f8987; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; }
+    @media(max-width:700px) {
+      .intro-scene-one .intro-layout { grid-template-columns:1fr; gap:8px; text-align:center; }
+      .intro-portrait-wrap { min-height:36vh; order:0; }
+      .intro-portrait { width:min(70vw,330px); max-height:38vh; }
+      .intro-orbit { width:min(72vw,340px); }
+      .intro-copy { margin-top:-8px; }
+      .intro-caption { margin:16px auto 0; }
+      .dev-workspace { grid-template-columns:1fr; gap:10px; margin-top:22px; }
+      .dev-window, .dev-window.preview { transform:none; }
+      .dev-window.preview { display:none; }
+      .dev-code { font-size:.61rem; }
+      .dev-stage { max-width:560px; }
+      .hands-svg { width:112%; max-width:none; margin-left:-6%; }
+      .hands-note { font-size:.75rem; }
+      .intro-index { bottom:17px; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      #cinematic-intro *, #cinematic-intro *::before, #cinematic-intro *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    }
+
   </style>
   <script type="importmap">
   {
@@ -1902,6 +2018,137 @@ animation: gridDrift 18s linear infinite;
 </head>
 
 <body>
+
+  <div id="cinematic-intro" role="presentation" aria-hidden="true">
+    <section class="intro-scene intro-scene-one is-active" data-scene="0">
+      <div class="intro-noise"></div>
+      <div class="intro-layout">
+        <div class="intro-portrait-wrap" aria-hidden="true">
+          <div class="intro-orbit"></div>
+          <svg class="intro-portrait" viewBox="0 0 520 650" role="img" aria-label="Abstract three-dimensional developer portrait">
+            <defs>
+              <linearGradient id="p-skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e7b8a2"/><stop offset=".48" stop-color="#986d60"/><stop offset="1" stop-color="#382c2a"/></linearGradient>
+              <linearGradient id="p-jacket" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#38383a"/><stop offset=".5" stop-color="#111214"/><stop offset="1" stop-color="#050506"/></linearGradient>
+              <linearGradient id="p-rim" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb1a5"/><stop offset=".5" stop-color="#ff4d3d"/><stop offset="1" stop-color="#7d1712"/></linearGradient>
+              <filter id="p-blur"><feGaussianBlur stdDeviation="18"/></filter>
+            </defs>
+            <ellipse cx="260" cy="595" rx="160" ry="22" fill="#ff4d3d" opacity=".22" filter="url(#p-blur)"/>
+            <path d="M91 610 Q104 455 185 414 L223 391 297 391 343 415 Q427 456 438 610Z" fill="url(#p-jacket)" stroke="#5d2925" stroke-width="2"/>
+            <path d="M194 401 L260 468 325 401 302 382 218 382Z" fill="#242426"/>
+            <path d="M218 340 L218 418 Q260 463 302 418 L302 340Z" fill="url(#p-skin)"/>
+            <path d="M164 196 Q168 80 260 77 Q355 81 358 199 L347 305 Q330 385 260 395 Q190 385 173 305Z" fill="url(#p-skin)" stroke="#ff9b8c" stroke-opacity=".35" stroke-width="2"/>
+            <path d="M158 217 Q128 83 224 48 Q310 18 364 106 Q385 153 357 222 L344 166 Q311 144 283 119 Q246 158 173 165Z" fill="#141416" stroke="url(#p-rim)" stroke-width="4"/>
+            <path d="M179 218 Q211 195 246 215 M275 215 Q313 194 344 218" fill="none" stroke="#211b1a" stroke-width="9" stroke-linecap="round"/>
+            <g stroke="#ff6657" stroke-width="6" fill="none" stroke-linecap="round">
+              <path d="M177 220 Q211 203 249 222 L245 249 Q211 264 183 245Z"/>
+              <path d="M271 222 Q311 203 346 220 L338 245 Q307 264 275 249Z"/>
+              <path d="M249 229 L271 229"/>
+            </g>
+            <path d="M256 240 Q244 285 260 292" fill="none" stroke="#714d45" stroke-width="5" stroke-linecap="round"/>
+            <path d="M222 322 Q260 341 299 320" fill="none" stroke="#51342f" stroke-width="6" stroke-linecap="round"/>
+            <path d="M178 276 Q181 344 226 373 M344 276 Q339 344 294 373" fill="none" stroke="#ffb2a5" stroke-opacity=".28" stroke-width="3"/>
+            <path class="portrait-rim" d="M159 210 Q137 84 224 48 Q310 18 364 106 Q385 153 357 222 M91 610 Q104 455 185 414 M438 610 Q427 456 343 415" fill="none" stroke="#ff604f" stroke-width="4" opacity=".7"/>
+            <path d="M104 555 Q165 501 213 499 M417 555 Q355 501 307 499" fill="none" stroke="#ff806f" stroke-opacity=".32" stroke-width="2"/>
+            <g fill="#ff8b7d"><circle cx="105" cy="215" r="3"/><circle cx="400" cy="175" r="2.5"/><circle cx="366" cy="410" r="3"/><circle cx="130" cy="450" r="2"/></g>
+          </svg>
+        </div>
+        <div class="intro-copy">
+          <div class="intro-kicker">Independent mind · Digital craft</div>
+          <div class="intro-name">MOHAMED<br/><span>FAZIL.</span></div>
+          <div class="intro-role">Web Developer · Student Builder</div>
+          <p class="intro-caption">Turning ideas into thoughtful digital experiences — one interface, one interaction, one product at a time.</p>
+        </div>
+      </div>
+      <div class="intro-index">01 / 03 — THE CREATOR</div>
+      <div class="intro-progress"><span></span></div>
+    </section>
+
+    <section class="intro-scene intro-scene-two" data-scene="1">
+      <div class="intro-noise"></div>
+      <div class="hands-stage">
+        <div class="intro-kicker">Human imagination · Machine intelligence</div>
+        <h2>Where <span>human creativity</span><br/>meets technology.</h2>
+        <svg class="hands-svg" viewBox="0 0 900 390" aria-hidden="true">
+          <defs>
+            <linearGradient id="human-arm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0c4ae"/><stop offset=".5" stop-color="#a97868"/><stop offset="1" stop-color="#563d38"/></linearGradient>
+            <linearGradient id="robot-arm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2f2f2"/><stop offset=".45" stop-color="#8d969c"/><stop offset="1" stop-color="#30383e"/></linearGradient>
+            <radialGradient id="spark-core"><stop stop-color="#fff"/><stop offset=".25" stop-color="#ffd0a6"/><stop offset=".58" stop-color="#ff604f"/><stop offset="1" stop-color="#ff604f" stop-opacity="0"/></radialGradient>
+            <filter id="spark-glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g class="hand-human">
+            <path d="M0 278 Q78 251 154 221 L287 172 Q321 160 345 184 L377 218 Q390 235 374 251 L307 297 Q267 325 220 338 L65 385 H0Z" fill="url(#human-arm)" stroke="#f2b49e" stroke-opacity=".48" stroke-width="3"/>
+            <path d="M244 205 Q278 173 310 149 Q331 134 349 151 Q362 166 347 184 L311 226" fill="url(#human-arm)" stroke="#f2b49e" stroke-width="3"/>
+            <path d="M280 229 Q320 195 354 179 Q374 171 386 188 Q397 207 376 223 L333 260" fill="url(#human-arm)" stroke="#f2b49e" stroke-width="3"/>
+            <path d="M294 258 Q337 231 369 218 Q388 211 399 229 Q407 248 387 260 L337 288" fill="url(#human-arm)" stroke="#f2b49e" stroke-width="3"/>
+            <path d="M276 288 Q313 273 347 261 Q367 256 376 273 Q382 292 362 303 L312 324" fill="url(#human-arm)" stroke="#f2b49e" stroke-width="3"/>
+          </g>
+          <g class="hand-robot">
+            <path d="M900 278 Q822 251 746 221 L613 172 Q579 160 555 184 L523 218 Q510 235 526 251 L593 297 Q633 325 680 338 L835 385 H900Z" fill="url(#robot-arm)" stroke="#d8e0e4" stroke-opacity=".65" stroke-width="3"/>
+            <path d="M656 205 Q622 173 590 149 Q569 134 551 151 Q538 166 553 184 L589 226" fill="url(#robot-arm)" stroke="#d8e0e4" stroke-width="3"/>
+            <path d="M620 229 Q580 195 546 179 Q526 171 514 188 Q503 207 524 223 L567 260" fill="url(#robot-arm)" stroke="#d8e0e4" stroke-width="3"/>
+            <path d="M606 258 Q563 231 531 218 Q512 211 501 229 Q493 248 513 260 L563 288" fill="url(#robot-arm)" stroke="#d8e0e4" stroke-width="3"/>
+            <path d="M624 288 Q587 273 553 261 Q533 256 524 273 Q518 292 538 303 L588 324" fill="url(#robot-arm)" stroke="#d8e0e4" stroke-width="3"/>
+            <path d="M727 214 L765 227 M706 244 L749 261 M688 276 L728 294" stroke="#ff7565" stroke-width="5" opacity=".7" stroke-linecap="round"/>
+            <circle cx="752" cy="235" r="5" fill="#ff604f"/><circle cx="715" cy="266" r="5" fill="#ff604f"/>
+          </g>
+          <g class="contact-spark" filter="url(#spark-glow)">
+            <circle cx="450" cy="190" r="43" fill="url(#spark-core)"/>
+            <path d="M450 126 L456 174 L490 148 L466 184 L518 190 L466 197 L490 231 L456 207 L450 255 L444 207 L410 231 L434 197 L382 190 L434 184 L410 148 L444 174Z" fill="#ffb19f" opacity=".92"/>
+            <circle cx="450" cy="190" r="8" fill="#fff"/>
+          </g>
+          <g class="spark-rays" stroke="#ff8b7b" stroke-width="2" opacity=".55">
+            <path d="M450 95 V70 M450 285 V310 M355 190 H330 M545 190 H570 M383 123 L365 105 M517 257 L535 275 M517 123 L535 105 M383 257 L365 275"/>
+          </g>
+        </svg>
+        <p class="hands-note">Ideas become real when creativity and engineering work together.</p>
+      </div>
+      <div class="intro-index">02 / 03 — THE CONNECTION</div>
+      <div class="intro-progress"><span></span></div>
+    </section>
+
+    <section class="intro-scene intro-scene-three" data-scene="2">
+      <div class="intro-noise"></div>
+      <div class="dev-stage">
+        <div class="intro-kicker">Design · Develop · Deploy</div>
+        <h2>From first line<br/>to <span>living experience.</span></h2>
+        <p class="dev-subtitle">A developer's workspace — where code becomes something people can use.</p>
+        <div class="dev-workspace">
+          <div class="dev-window">
+            <div class="dev-bar"><i class="dev-dot"></i> App.jsx <span style="margin-left:auto">● LIVE EDIT</span></div>
+            <div class="dev-code">
+              <div><span class="ln">01</span><span class="kw">import</span> React <span class="kw">from</span> <span class="str">'react'</span>;</div>
+              <div><span class="ln">02</span><span class="kw">import</span> <span class="fn">{ useState }</span> <span class="kw">from</span> <span class="str">'react'</span>;</div>
+              <div><span class="ln">03</span></div>
+              <div><span class="ln">04</span><span class="kw">export default function</span> <span class="fn">Experience</span>() {</div>
+              <div><span class="ln">05</span>&nbsp;&nbsp;<span class="kw">return</span> (</div>
+              <div><span class="ln">06</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim">&lt;</span><span class="kw">main</span> className=<span class="str">"future"</span><span class="dim">&gt;</span></div>
+              <div><span class="ln">07</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim">&lt;</span><span class="kw">Build</span> idea=<span class="str">"something great"</span> <span class="dim">/&gt;</span></div>
+              <div><span class="ln">08</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim">&lt;/</span><span class="kw">main</span><span class="dim">&gt;</span></div>
+              <div><span class="ln">09</span>&nbsp;&nbsp;);</div>
+              <div><span class="ln">10</span>}</div>
+            </div>
+          </div>
+          <div class="dev-window preview">
+            <div class="dev-bar"><i class="dev-dot"></i> localhost:3000 <span style="margin-left:auto">↗</span></div>
+            <div class="dev-preview">
+              <div class="preview-nav">FAZIL<b>✳</b><span>WORK&nbsp;&nbsp; ABOUT&nbsp;&nbsp; CONTACT</span></div>
+              <div class="preview-hero">
+                <strong>Ideas deserve a beautiful interface.</strong>
+                <small>Thoughtful design. Clean code. Real experiences.</small>
+                <span class="preview-cta">Explore the experience ↗</span>
+              </div>
+              <div class="preview-cards"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-stack"><span>REACT</span><span>JAVASCRIPT</span><span>THREE.JS</span><span>UI / UX</span><span>DEPLOYMENT</span></div>
+        <div class="intro-final-line">Mohamed Fazil · Web Developer</div>
+      </div>
+      <div class="intro-index">03 / 03 — THE BUILD</div>
+      <div class="intro-progress"><span></span></div>
+    </section>
+  </div>
+
   <a class="skip-link" href="#main-content">Skip to content</a>
   <canvas id="portfolio-bg" aria-hidden="true"></canvas>
 
@@ -3719,5 +3966,36 @@ ctx.rotate(orbitAngle);
   requestAnimationFrame(animate);
 })();
 </script>
+
+  <script>
+  (() => {
+    const intro = document.getElementById("cinematic-intro");
+    if (!intro) return;
+    const scenes = Array.from(intro.querySelectorAll(".intro-scene"));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let current = 0;
+    let timer = null;
+    const durations = reduceMotion ? [1800, 1400, 1800] : [5600, 5200, 6500];
+    function showScene(index) {
+      scenes.forEach((scene, i) => scene.classList.toggle("is-active", i === index));
+      current = index;
+      if (index < scenes.length - 1) {
+        timer = window.setTimeout(() => showScene(index + 1), durations[index]);
+      } else {
+        timer = window.setTimeout(() => {
+          intro.classList.add("is-finished");
+          window.setTimeout(() => {
+            intro.remove();
+            document.body.classList.remove("intro-playing");
+          }, 1300);
+        }, durations[index]);
+      }
+    }
+    document.body.classList.add("intro-playing");
+    showScene(0);
+    window.addEventListener("pagehide", () => { if (timer) clearTimeout(timer); }, { once:true });
+  })();
+  </script>
+
 </body>
 </html>
