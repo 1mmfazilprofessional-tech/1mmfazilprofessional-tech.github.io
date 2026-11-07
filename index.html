@@ -23,6 +23,9 @@
   />
 
   <meta name="theme-color" content="#090909" />
+  <meta name="color-scheme" content="dark" />
+  <meta property="og:url" content="https://1mmfazilprofessional-tech.github.io/" />
+  <meta name="twitter:card" content="summary" />
 
   <!-- Open Graph -->
   <meta
@@ -42,7 +45,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
@@ -1438,6 +1441,456 @@ animation: gridDrift 18s linear infinite;
         transform: none;
       }
     }
+
+    /* =========================================================
+       PRESENTATION REFINEMENT — ACCESSIBILITY, PROOF & FEATURED WORK
+    ========================================================= */
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .nav > nav {
+      display: contents;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 2000;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      transform: translateY(-160%);
+      transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .hero-content {
+      max-width: 780px;
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      text-wrap: balance;
+    }
+
+    .hero-description {
+      max-width: 630px;
+    }
+
+    .proof-strip {
+      position: relative;
+      z-index: 2;
+      padding: 0 0 42px;
+      background: var(--bg);
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .proof-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 88px;
+      padding: 18px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+        rgba(16, 16, 16, 0.82);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    .proof-number {
+      color: var(--accent);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      line-height: 1;
+    }
+
+    .proof-label {
+      color: #bcbcbc;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .skill-card {
+      min-width: 0;
+      padding: 26px;
+    }
+
+    .skill-card h3 {
+      min-height: 2.5em;
+    }
+
+    .projects-grid {
+      align-items: stretch;
+      gap: 24px;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .project-content > p:not(.project-note) {
+      flex: 1;
+    }
+
+    .project-card-featured {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+      grid-template-rows: auto 1fr;
+      align-items: center;
+      gap: 18px 34px;
+      min-height: 390px;
+      padding: 34px;
+      border-color: rgba(255, 77, 61, 0.24);
+      background:
+        radial-gradient(circle at 82% 50%, rgba(255, 77, 61, 0.11), transparent 36%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018));
+    }
+
+    .project-card-featured .project-number {
+      grid-column: 1 / -1;
+      margin-bottom: 0;
+      color: rgba(255, 77, 61, 0.52);
+    }
+
+    .project-card-featured .project-content {
+      grid-column: 1;
+      grid-row: 2;
+      align-self: stretch;
+    }
+
+    .project-card-featured .project-content h3 {
+      max-width: 560px;
+      font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    }
+
+    .project-card-featured .project-content > p:not(.project-note) {
+      flex: initial;
+    }
+
+    .project-card-featured .project-note {
+      margin-top: auto !important;
+      padding-top: 14px;
+      color: #a6a6a6;
+      font-size: 0.8rem;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .project-actions .project-link {
+      margin-top: 0;
+    }
+
+    .project-card-featured .project-link {
+      margin-top: 0;
+      padding: 11px 15px;
+      border: 1px solid rgba(255, 77, 61, 0.34);
+      border-radius: 10px;
+      background: rgba(255, 77, 61, 0.09);
+    }
+
+    .project-product-preview {
+      grid-column: 2;
+      grid-row: 2;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      min-height: 265px;
+      padding: 8px;
+      perspective: 1100px;
+    }
+
+    .preview-window {
+      width: 100%;
+      max-width: 470px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      background: #101316;
+      box-shadow:
+        0 28px 65px rgba(0, 0, 0, 0.45),
+        0 0 42px rgba(255, 77, 61, 0.09);
+      transform: rotateY(-7deg) rotateX(2deg);
+      transition: transform 0.45s ease, box-shadow 0.45s ease;
+    }
+
+    .project-card-featured:hover .preview-window {
+      transform: rotateY(0) rotateX(0) translateY(-3px);
+      box-shadow:
+        0 32px 72px rgba(0, 0, 0, 0.5),
+        0 0 52px rgba(255, 77, 61, 0.14);
+    }
+
+    .preview-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 15px 17px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #15191d;
+    }
+
+    .preview-brand {
+      color: #f4f4f4;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .preview-brand span {
+      color: var(--accent);
+    }
+
+    .preview-status,
+    .preview-caption,
+    .preview-foot {
+      color: #7e878c;
+      font-family: "Inter", sans-serif;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+    }
+
+    .preview-status {
+      color: #a2aaa9;
+    }
+
+    .preview-body {
+      padding: 19px;
+    }
+
+    .preview-caption {
+      margin-bottom: 11px;
+    }
+
+    .preview-editor {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 8px 9px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.085);
+      border-radius: 11px;
+      background: #090c0f;
+      color: #e0e4e5;
+      font-family: "JetBrains Mono", "Courier New", monospace;
+      font-size: clamp(0.58rem, 1.1vw, 0.72rem);
+      line-height: 1.55;
+    }
+
+    .preview-line {
+      color: #59636b;
+      user-select: none;
+    }
+
+    .preview-editor em {
+      color: #ff927f;
+      font-style: normal;
+    }
+
+    .preview-editor b {
+      color: #e8c17a;
+      font-weight: 600;
+    }
+
+    .preview-mode-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 13px;
+    }
+
+    .preview-mode {
+      padding: 6px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      color: #9ba2a6;
+      font-family: "Inter", sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .preview-mode.active {
+      border-color: rgba(255, 77, 61, 0.38);
+      background: rgba(255, 77, 61, 0.12);
+      color: #ff8d7e;
+    }
+
+    .preview-result {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .preview-result-dot {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #8ed5a0;
+      box-shadow: 0 0 12px rgba(142, 213, 160, 0.35);
+    }
+
+    .preview-result strong,
+    .preview-result small {
+      display: block;
+    }
+
+    .preview-result strong {
+      color: #e9ecee;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .preview-result small {
+      margin-top: 3px;
+      color: #7c858b;
+      font-size: 0.6rem;
+    }
+
+    .preview-arrow {
+      margin-left: auto;
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    .preview-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px 17px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      background: #0d1013;
+      font-size: 0.54rem;
+    }
+
+    .footer-social {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-social:hover {
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 1000px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project-card-featured {
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 0.9fr);
+        gap: 18px 22px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-item {
+        min-height: 72px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card-featured {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .project-card-featured .project-number {
+        margin-bottom: 4px;
+      }
+
+      .project-product-preview {
+        order: 3;
+        min-height: 0;
+        padding: 8px 0 0;
+      }
+
+      .preview-window {
+        transform: none;
+      }
+
+      .project-card-featured .project-content {
+        display: flex;
+      }
+
+      .project-card-featured .project-note {
+        margin-top: 10px !important;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .hero-content {
+        max-width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .preview-window {
+        transform: none !important;
+      }
+    }
+
   </style>
   <script type="importmap">
   {
@@ -1449,6 +1902,7 @@ animation: gridDrift 18s linear infinite;
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <canvas id="portfolio-bg" aria-hidden="true"></canvas>
 
   <!-- =======================================================
@@ -1466,11 +1920,13 @@ animation: gridDrift 18s linear infinite;
         class="menu-toggle"
         id="menuToggle"
         aria-label="Open navigation menu"
+        aria-controls="navLinks"
         aria-expanded="false"
       >
         ☰
       </button>
 
+      <nav aria-label="Main navigation">
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -1479,6 +1935,7 @@ animation: gridDrift 18s linear infinite;
         <li><a href="#education">Education</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      </nav>
 
     </div>
   </header>
@@ -1488,7 +1945,7 @@ animation: gridDrift 18s linear infinite;
        HERO
   ======================================================== -->
 
-  <main>
+  <main id="main-content">
 
     <section class="hero" id="home">
       <div class="hero-3d" id="hero3d" aria-hidden="true"></div>
@@ -1506,10 +1963,11 @@ animation: gridDrift 18s linear infinite;
           </h1>
 
           <p class="hero-description">
-   I'm Mohamed Fazil, a second-year B.Tech Computer Science
-  Engineering student at JB Groups of Institutions, focused
-  on strengthening my programming foundation and building
-  practical web projects. 
+            I'm Mohamed Fazil, a second-year B.Tech Computer Science
+            Engineering student at JB Groups of Institutions. I build
+            web experiences and AI-assisted learning tools while
+            strengthening my foundations in programming and software
+            development.
           </p>
 
           <div class="hero-buttons">
@@ -1520,11 +1978,20 @@ animation: gridDrift 18s linear infinite;
             <a href="#contact" class="btn btn-secondary">
               Let's Connect
             </a>
+
+            <a
+              href="https://github.com/1mmfazilprofessional-tech"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub Profile ↗
+            </a>
           </div>
 
           <div class="hero-status">
             <span class="status-dot"></span>
-            Currently learning, building, and improving
+            Student developer · Learning, building, improving
           </div>
 
         </div>
@@ -1532,6 +1999,22 @@ animation: gridDrift 18s linear infinite;
       </div>
     </section>
 
+    <div class="proof-strip" aria-label="Portfolio overview">
+      <div class="container proof-grid">
+        <div class="proof-item">
+          <span class="proof-number">05</span>
+          <span class="proof-label">Selected projects</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-number">01</span>
+          <span class="proof-label">AI-powered learning product</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-number">04</span>
+          <span class="proof-label">Core skill areas</span>
+        </div>
+      </div>
+    </div>
 
     <!-- =====================================================
          ABOUT
@@ -1570,9 +2053,14 @@ animation: gridDrift 18s linear infinite;
 
             <p>
               My goal is to continuously improve my technical ability,
-              understand how real software is developed, and eventually
-              contribute to meaningful projects in professional
-              environments.
+              understand how real software is developed, and contribute
+              to meaningful projects in professional environments.
+            </p>
+
+            <p>
+              I use AI-assisted tools as part of my learning workflow for
+              research, debugging, and iteration, while reviewing and
+              refining the work I present.
             </p>
 
             <div class="about-highlight">
@@ -1643,6 +2131,19 @@ animation: gridDrift 18s linear infinite;
               <li>Git</li>
               <li>GitHub</li>
               <li>VS Code</li>
+            </ul>
+          </article>
+
+          <article class="skill-card reveal">
+            <div class="skill-icon">04</div>
+
+            <h3>AI &amp; Application Development</h3>
+
+            <ul class="skill-list">
+              <li>React</li>
+              <li>TypeScript</li>
+              <li>TanStack Start</li>
+              <li>Gemini API</li>
             </ul>
           </article>
 
@@ -1776,19 +2277,19 @@ animation: gridDrift 18s linear infinite;
             <div class="project-content">
 
               <span class="project-category">
-                 Live Website
+                Personal Web Experience
               </span>
               
               <span class="project-verified">LIVE PROJECT</span>
 
               <h3>
-                1MM Fazil web project
+                1MM Fazil — Personal Web Project
               </h3>
 
               <p>
-                A live website developed and deployed as part of my hands-on web
-  development work, with a focus on responsive design, implementation,
-  testing, and practical user experience.
+                A personal web project developed and published as part of my
+                front-end practice, focusing on page structure, visual
+                presentation, responsive styling, and practical implementation.
               </p>
 
               <div class="project-tech">
@@ -1843,14 +2344,24 @@ animation: gridDrift 18s linear infinite;
                 <span>Three.js</span>
               </div>
 
-              <a
-                href="https://1mmfazilprofessional-tech.github.io/BMW-Showcase/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-                Open Live Project ↗
-              </a>
+              <div class="project-actions">
+                <a
+                  href="https://1mmfazilprofessional-tech.github.io/BMW-Showcase/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                >
+                  Open Live Project ↗
+                </a>
+                <a
+                  href="https://github.com/1mmfazilprofessional-tech/BMW-Showcase"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                >
+                  View Source ↗
+                </a>
+              </div>
 
             </div>
 
@@ -1861,7 +2372,7 @@ animation: gridDrift 18s linear infinite;
 
           <!-- PROJECT 05 -->
 
-          <article class="project-card reveal">
+          <article class="project-card project-card-featured reveal">
 
             <div class="project-number">
               05
@@ -1870,21 +2381,21 @@ animation: gridDrift 18s linear infinite;
             <div class="project-content">
 
               <span class="project-category">
-                AI-Powered Developer Tool
+                AI-Powered Learning Product
               </span>
 
               <span class="project-verified">LIVE PROJECT</span>
 
               <h3>
-                Code Oracle — AI Code Tutor
+                Code Oracle — AI Programming Tutor
               </h3>
 
               <p>
-                An AI-powered code understanding workspace that helps learners
-                explain, debug, optimize, dry-run, and learn from code. Users
-                can paste code or upload a code photo to receive structured
-                explanations, predicted output, possible bugs, improved code,
-                complexity insights, concepts, and quick quizzes.
+                An AI-assisted programming workspace that helps learners
+                understand, dry-run, debug, optimize, and study code. It accepts
+                pasted code or a code photo and returns a structured walkthrough,
+                AI-estimated output, bug observations, improved examples,
+                complexity notes, concepts, and quick quizzes.
               </p>
 
               <div class="project-tech">
@@ -1896,21 +2407,64 @@ animation: gridDrift 18s linear infinite;
                 <span>Vercel</span>
               </div>
 
-              <a
-                href="https://code-vision-mastery-fc9y.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-                Try Code Oracle ↗
-              </a>
+              <div class="project-actions">
+                <a
+                  href="https://code-vision-mastery-fc9y.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                >
+                  Try Code Oracle ↗
+                </a>
+              </div>
 
-              <p class="project-note" style="margin-top: 14px;">
-                Future vision: guided learning paths, code history, safer
-                AI-generated fixes, multi-file project analysis, and
-                beginner-friendly practice challenges.
+              <p class="project-note">
+                Built around five learning modes: Explain, Dry run, Debug,
+                Optimize, and Teach.
               </p>
 
+            </div>
+
+            <div class="project-product-preview" aria-hidden="true">
+              <div class="preview-window">
+                <div class="preview-topbar">
+                  <div class="preview-brand">CODE <span>ORACLE</span></div>
+                  <span class="preview-status">AI LEARNING WORKSPACE</span>
+                </div>
+
+                <div class="preview-body">
+                  <div class="preview-caption">PASTE OR CAPTURE YOUR CODE</div>
+                  <div class="preview-editor">
+                    <span class="preview-line">01</span>
+                    <span><em>function</em> greet(name) {</span>
+                    <span class="preview-line">02</span>
+                    <span>&nbsp;&nbsp;<b>return</b> "Hello, " + name;</span>
+                    <span class="preview-line">03</span>
+                    <span>}</span>
+                  </div>
+
+                  <div class="preview-mode-row">
+                    <span class="preview-mode active">EXPLAIN</span>
+                    <span class="preview-mode">DRY RUN</span>
+                    <span class="preview-mode">DEBUG</span>
+                    <span class="preview-mode">TEACH</span>
+                  </div>
+
+                  <div class="preview-result">
+                    <span class="preview-result-dot"></span>
+                    <div>
+                      <strong>Structured code walkthrough</strong>
+                      <small>Explanation · output estimate · concepts</small>
+                    </div>
+                    <span class="preview-arrow">↗</span>
+                  </div>
+                </div>
+
+                <div class="preview-foot">
+                  <span>TEXT + IMAGE INPUT</span>
+                  <span>GEMINI-POWERED</span>
+                </div>
+              </div>
             </div>
 
           </article>
@@ -2029,6 +2583,7 @@ animation: gridDrift 18s linear infinite;
           <div class="institution">
             Computer Science Engineering • JB Groups of Institutions
           </div>
+          <div class="education-label">Expected graduation · 2029</div>
 
           <p>
          Currently pursuing my B.Tech in Computer Science Engineering,
@@ -2079,6 +2634,16 @@ animation: gridDrift 18s linear infinite;
               >
                 ✉
                 md.fazil2407@gmail.com
+              </a>
+
+              <a
+                class="contact-link"
+                href="https://github.com/1mmfazilprofessional-tech"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ↗
+                GitHub · 1mmfazilprofessional-tech
               </a>
 
             </div>
@@ -2166,8 +2731,14 @@ animation: gridDrift 18s linear infinite;
 
       <p>
         © <span id="year"></span>
-        Mohamed Fazil. Learning, building, and growing.
+        Mohamed Fazil · Student developer · Learning, building, and growing.
       </p>
+      <a
+        class="footer-social"
+        href="https://github.com/1mmfazilprofessional-tech"
+        target="_blank"
+        rel="noopener noreferrer"
+      >GitHub ↗</a>
 
     </div>
 
