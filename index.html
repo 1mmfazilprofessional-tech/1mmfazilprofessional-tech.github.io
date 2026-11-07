@@ -1892,6 +1892,38 @@ animation: gridDrift 18s linear infinite;
     }
 
 
+  
+/* CINEMATIC INTRO — three scroll-led scenes before the original portfolio */
+.cinematic-intro{position:relative;z-index:2;background:#050505;color:#fff;overflow:clip}
+.intro-scene{height:100svh;min-height:620px;max-height:1100px;position:relative;isolation:isolate;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid rgba(255,77,61,.32);background:#070707}
+.intro-scene::before{content:"";position:absolute;inset:-8%;z-index:-2;background-image:var(--scene-image);background-position:center;background-size:cover;transform:scale(1.08);filter:saturate(.9) contrast(1.08);animation:intro-drift 22s ease-in-out infinite alternate}
+.intro-scene::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,4,5,.2),rgba(4,4,5,.08) 48%,rgba(4,4,5,.66)),linear-gradient(0deg,rgba(4,4,5,.8),transparent 36%,rgba(4,4,5,.22));pointer-events:none}
+.intro-scene[data-scene="portrait"]::after{background:linear-gradient(90deg,rgba(4,4,5,.02),rgba(4,4,5,.08) 48%,rgba(4,4,5,.7)),linear-gradient(0deg,rgba(4,4,5,.78),transparent 36%,rgba(4,4,5,.15))}
+.intro-scene[data-scene="hands"]::before{animation-duration:17s;filter:saturate(1.08) contrast(1.12)}
+.intro-scene[data-scene="developer"]::before{animation-duration:25s}
+.intro-copy{width:min(1180px,90%);position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-end;text-align:right;padding-top:clamp(140px,18vh,220px);text-shadow:0 3px 30px #000}
+.intro-kicker{font:700 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.32em;text-transform:uppercase;color:#ff7669;margin-bottom:18px}
+.intro-name{font:800 clamp(44px,8vw,112px)/.92 "Space Grotesk",sans-serif;letter-spacing:-.075em;text-transform:uppercase;max-width:680px}
+.intro-name span{display:block;color:#ff4d3d}
+.intro-role{margin-top:22px;font-size:clamp(14px,2vw,22px);letter-spacing:.2em;text-transform:uppercase;color:#eee}
+.intro-tagline{margin-top:14px;color:#c8c2c0;font-size:14px;letter-spacing:.16em}
+.intro-tagline b{color:#ff4d3d}
+.intro-scene[data-scene="hands"] .intro-copy,.intro-scene[data-scene="developer"] .intro-copy{align-items:flex-end;padding-top:clamp(190px,28vh,330px);max-width:1180px}
+.intro-scene[data-scene="hands"] .intro-name,.intro-scene[data-scene="developer"] .intro-name{font-size:clamp(34px,5vw,68px);max-width:620px}
+.intro-scene[data-scene="hands"] .intro-copy{padding-top:clamp(220px,35vh,390px)}
+.intro-scene[data-scene="developer"] .intro-copy{padding-top:clamp(180px,28vh,300px)}
+.intro-meta{position:absolute;bottom:28px;left:5%;right:5%;display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,.55);font:10px "JetBrains Mono",monospace;letter-spacing:.22em;text-transform:uppercase;z-index:3}
+.intro-meta span:last-child{color:#ff7669}
+.intro-orbit{position:absolute;width:min(54vw,650px);height:min(54vw,650px);border:1px solid rgba(255,77,61,.28);border-radius:50%;left:-16%;top:28%;transform:rotateX(68deg);box-shadow:0 0 50px rgba(255,77,61,.08),inset 0 0 50px rgba(255,77,61,.08);animation:orbit-spin 26s linear infinite;pointer-events:none}
+.intro-orbit::before,.intro-orbit::after{content:"";position:absolute;inset:9%;border:1px solid rgba(255,77,61,.22);border-radius:50%}
+.intro-orbit::after{inset:20%;border-color:rgba(255,255,255,.12)}
+.intro-scene[data-scene="hands"] .intro-orbit{left:auto;right:-18%;top:5%;width:min(48vw,560px);height:min(48vw,560px)}
+.intro-scene[data-scene="developer"] .intro-orbit{left:12%;top:12%;width:min(36vw,440px);height:min(36vw,440px)}
+@keyframes intro-drift{0%{transform:scale(1.08) translate3d(-.5%,.3%,0)}100%{transform:scale(1.16) translate3d(.8%,-.7%,0)}}
+@keyframes orbit-spin{to{transform:rotateX(68deg) rotateZ(360deg)}}
+@media(max-width:700px){.intro-scene{min-height:560px;height:88svh}.intro-scene::before{background-position:42% center}.intro-scene::after{background:linear-gradient(0deg,rgba(4,4,5,.86),rgba(4,4,5,.12) 70%),linear-gradient(90deg,rgba(4,4,5,.12),rgba(4,4,5,.2))}.intro-copy,.intro-scene[data-scene="hands"] .intro-copy,.intro-scene[data-scene="developer"] .intro-copy{align-items:flex-start;text-align:left;padding-top:clamp(220px,35vh,320px)}.intro-name{font-size:clamp(42px,13vw,72px)}.intro-scene[data-scene="hands"] .intro-name,.intro-scene[data-scene="developer"] .intro-name{font-size:clamp(34px,10vw,54px)}.intro-role{font-size:12px}.intro-tagline{font-size:11px;letter-spacing:.08em}.intro-orbit{width:85vw;height:85vw;left:38%;top:10%}.intro-meta{font-size:8px;letter-spacing:.12em;bottom:18px}}
+@media(prefers-reduced-motion:reduce){.intro-scene::before,.intro-orbit{animation:none!important}}
+
   </style>
   <script type="importmap">
   {
@@ -1903,6 +1935,25 @@ animation: gridDrift 18s linear infinite;
 </head>
 
 <body>
+
+  <div class="cinematic-intro" id="cinematicIntro" aria-label="Cinematic introduction">
+    <section class="intro-scene" data-scene="portrait" style="--scene-image:url('assets/intro/portrait.jpg')" aria-label="Mohamed Fazil, web developer">
+      <div class="intro-orbit" aria-hidden="true"></div>
+      <div class="intro-copy"><div class="intro-kicker">Independent mind · Digital craft</div><h1 class="intro-name">Mohamed <span>Fazil.</span></h1><p class="intro-role">Web Developer · Student Builder</p><p class="intro-tagline">Build <b>•</b> Innovate <b>•</b> Inspire</p></div>
+      <div class="intro-meta"><span>01 / 03 — The creator</span><span>Scroll to continue ↓</span></div>
+    </section>
+    <section class="intro-scene" data-scene="hands" style="--scene-image:url('assets/intro/hands.jpg')" aria-label="Human and robotic hands connecting through technology">
+      <div class="intro-orbit" aria-hidden="true"></div>
+      <div class="intro-copy"><div class="intro-kicker">Human imagination × machine intelligence</div><h2 class="intro-name">Bridging ideas with <span>technology.</span></h2><p class="intro-role">Where human creativity meets AI</p></div>
+      <div class="intro-meta"><span>02 / 03 — Connection</span><span>Scroll to continue ↓</span></div>
+    </section>
+    <section class="intro-scene" data-scene="developer" style="--scene-image:url('assets/intro/developer.jpg')" aria-label="Developer workspace with code and technology">
+      <div class="intro-orbit" aria-hidden="true"></div>
+      <div class="intro-copy"><div class="intro-kicker">Design · Develop · Deliver</div><h2 class="intro-name">Turning code into <span>real solutions.</span></h2><p class="intro-role">React · TypeScript · AI · Full-stack</p><p class="intro-tagline">Thoughtful interfaces. <b>Practical products.</b></p></div>
+      <div class="intro-meta"><span>03 / 03 — The craft</span><span>Portfolio begins below ↓</span></div>
+    </section>
+  </div>
+
 
   <a class="skip-link" href="#main-content">Skip to content</a>
   <canvas id="portfolio-bg" aria-hidden="true"></canvas>
