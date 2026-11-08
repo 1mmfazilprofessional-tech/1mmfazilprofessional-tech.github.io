@@ -404,44 +404,128 @@ animation: gridDrift 18s linear infinite;
       animation:ambientGlowReverse 12s ease-in-out infinite;
     }
     .hero-3d {
-  position: absolute;
-  top: 50%;
-  right: 3%;
-  width: min(48vw, 620px);
-  height: min(48vw, 620px);
-  transform: translateY(-50%);
-  z-index: 1;
-  pointer-events: none;
-  overflow: visible;
-}
+      position: absolute;
+      top: 51%;
+      right: -2%;
+      width: min(58vw, 760px);
+      height: min(58vw, 760px);
+      transform: translateY(-50%);
+      z-index: 1;
+      isolation: isolate;
+      pointer-events: none;
+      overflow: visible;
+      background: radial-gradient(ellipse at 50% 52%,
+        rgba(255, 65, 48, .19) 0%,
+        rgba(255, 65, 48, .09) 34%,
+        rgba(255, 65, 48, .025) 58%,
+        transparent 73%);
+      animation: worldAura 7s ease-in-out infinite;
+    }
 
-.hero-3d canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+    .hero-3d::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      inset: 10%;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(255, 75, 58, .22),
+        rgba(255, 75, 58, .07) 42%,
+        transparent 72%);
+      filter: blur(34px);
+      animation: worldBacklight 5.5s ease-in-out infinite alternate;
+    }
 
-@media (max-width: 900px) {
-  .hero-3d {
-    right: -8%;
-    width: 58vw;
-    height: 58vw;
-    opacity: .8;
-  }
-}
+    .hero-3d canvas {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-world-title {
+      position: absolute;
+      z-index: 3;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 92%;
+      color: #fff2ef;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(.82rem, 1.25vw, 1.12rem);
+      font-weight: 700;
+      letter-spacing: .42em;
+      text-align: center;
+      text-shadow: 0 0 9px rgba(255, 92, 76, .95),
+                   0 0 24px rgba(255, 65, 48, .7),
+                   0 0 48px rgba(255, 65, 48, .38);
+      white-space: nowrap;
+      animation: worldTitlePulse 3.8s ease-in-out infinite;
+    }
+
+    .hero-world-title::after {
+      content: "";
+      display: block;
+      width: 58%;
+      height: 1px;
+      margin: 12px auto 0;
+      background: linear-gradient(90deg, transparent, #ff6b5c, transparent);
+      box-shadow: 0 0 12px rgba(255, 77, 61, .9);
+    }
+
+    @keyframes worldAura {
+      0%, 100% { filter: saturate(1); }
+      50% { filter: saturate(1.35); }
+    }
+
+    @keyframes worldBacklight {
+      from { opacity: .55; transform: scale(.88); }
+      to { opacity: 1; transform: scale(1.08); }
+    }
+
+    @keyframes worldTitlePulse {
+      0%, 100% { opacity: .78; text-shadow: 0 0 8px rgba(255,92,76,.75), 0 0 22px rgba(255,65,48,.45); }
+      50% { opacity: 1; text-shadow: 0 0 12px rgba(255,120,104,1), 0 0 32px rgba(255,65,48,.85), 0 0 54px rgba(255,65,48,.42); }
+    }
+
+@media (max-width: 900px) and (min-width: 701px) {
+      .hero-3d {
+        right: -5%;
+        width: min(57vw, 650px);
+        height: min(57vw, 650px);
+        opacity: .92;
+      }
+      .hero-world-title {
+        top: 7%;
+        letter-spacing: .3em;
+      }
+    }
 
 @media (max-width: 700px) {
-  .hero-3d {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: min(88vw, 460px);
-    height: min(88vw, 460px);
-    transform: none;
-    margin: 10px auto 35px;
-    order: 2;
-    opacity: .9;
-  }
+      .hero-3d {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: min(94vw, 520px);
+        height: min(94vw, 520px);
+        transform: none;
+        margin: 8px auto 30px;
+        order: 2;
+        opacity: 1;
+      }
+
+      .hero-world-title {
+        top: 5%;
+        font-size: .78rem;
+        letter-spacing: .24em;
+      }
+
+      .hero-3d::after {
+        inset: 8%;
+        filter: blur(26px);
+      }
 
   .hero-content {
     z-index: 2;
@@ -2031,7 +2115,9 @@ animation: gridDrift 18s linear infinite;
   <main id="main-content">
 
     <section class="hero" id="home">
-      <div class="hero-3d" id="hero3d" aria-hidden="true"></div>
+      <div class="hero-3d" id="hero3d" aria-hidden="true">
+        <div class="hero-world-title">WEB DEVELOPER</div>
+      </div>
       <div class="container">
 
         <div class="hero-content reveal">
