@@ -454,13 +454,14 @@ animation: gridDrift 18s linear infinite;
       max-width: 92%;
       color: #fff2ef;
       font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(.82rem, 1.25vw, 1.12rem);
-      font-weight: 700;
-      letter-spacing: .42em;
+      font-size: clamp(1.45rem, 2.35vw, 2.25rem);
+      font-weight: 900;
+      letter-spacing: .2em;
       text-align: center;
-      text-shadow: 0 0 9px rgba(255, 92, 76, .95),
-                   0 0 24px rgba(255, 65, 48, .7),
-                   0 0 48px rgba(255, 65, 48, .38);
+      text-shadow: 0 0 5px rgba(255,255,255,.98),
+                   0 0 14px rgba(255,255,255,.72),
+                   0 0 28px rgba(255, 92, 76, .95),
+                   0 0 58px rgba(255, 65, 48, .62);
       white-space: nowrap;
       animation: worldTitlePulse 3.8s ease-in-out infinite;
     }
@@ -471,8 +472,8 @@ animation: gridDrift 18s linear infinite;
       z-index: -1;
       left: 50%;
       top: 50%;
-      width: 280px;
-      height: 100px;
+      width: 420px;
+      height: 150px;
       transform: translate(-50%, -50%);
       pointer-events: none;
       background:
@@ -565,6 +566,30 @@ animation: gridDrift 18s linear infinite;
       z-index: 2;
       width: min(56%, 700px);
       max-width: 700px;
+      isolation: isolate;
+    }
+
+    /* Soft red energy field behind the original left-side introduction. */
+    .hero-content::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -54px -48px -42px -58px;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 32% 34%,
+          rgba(255, 65, 48, .19) 0%,
+          rgba(255, 65, 48, .09) 34%,
+          rgba(255, 65, 48, .035) 58%,
+          transparent 76%);
+      filter: blur(25px);
+      opacity: .9;
+      animation: leftHeroAura 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes leftHeroAura {
+      from { opacity: .62; transform: scale(.98); }
+      to { opacity: 1; transform: scale(1.035); }
     }
 
     /* Original hero headline: staggered entrance, not a cinematic intro. */
@@ -3154,12 +3179,28 @@ animation: gridDrift 18s linear infinite;
     const coreGeometry = new THREE.SphereGeometry(1.45, 64, 48);
 
     const coreMaterial = new THREE.MeshStandardMaterial({
-      color: 0x151515,
-      metalness: 0.92,
-      roughness: 0.24,
-      emissive: 0x2a0b08,
-      emissiveIntensity: 0.8
+      color: 0xff7664,
+      metalness: 0.48,
+      roughness: 0.62,
+      emissive: 0x64120d,
+      emissiveIntensity: 0.82
     });
+
+    /* Warm, illuminated Earth surface based on the supplied globe reference.
+       The procedural particle shell and orbital rings remain layered above it. */
+    const earthTextureLoader = new THREE.TextureLoader();
+    earthTextureLoader.load(
+      "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg",
+      (earthTexture) => {
+        earthTexture.colorSpace = THREE.SRGBColorSpace;
+        coreMaterial.map = earthTexture;
+        coreMaterial.needsUpdate = true;
+      },
+      undefined,
+      () => {
+        /* Keep the existing glowing globe if the optional texture is unavailable. */
+      }
+    );
 
     const core = new THREE.Mesh(
       coreGeometry,
