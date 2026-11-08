@@ -655,6 +655,43 @@ animation: gridDrift 18s linear infinite;
       color: var(--accent);
     }
 
+    /* Signature hero identity: bold name with a luminous developer title. */
+    .hero h1.hero-name {
+      font-weight: 800;
+      letter-spacing: -0.075em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 .hero-role {
+      margin-top: 12px;
+      color: #ff5548;
+      font-size: .72em;
+      font-weight: 800;
+      letter-spacing: .045em;
+      line-height: 1.05;
+      text-shadow:
+        0 0 8px rgba(255, 77, 61, .72),
+        0 0 22px rgba(255, 77, 61, .42),
+        0 0 42px rgba(255, 77, 61, .2);
+      animation: roleGlow 3.2s ease-in-out infinite;
+    }
+
+    @keyframes roleGlow {
+      0%, 100% {
+        text-shadow: 0 0 7px rgba(255, 77, 61, .55),
+                     0 0 18px rgba(255, 77, 61, .32);
+      }
+      50% {
+        text-shadow: 0 0 12px rgba(255, 105, 91, .95),
+                     0 0 30px rgba(255, 77, 61, .68),
+                     0 0 52px rgba(255, 77, 61, .34);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero h1 .hero-role { animation: none; }
+    }
+
     .hero-description {
       max-width: 700px;
       color: #b5b5b5;
@@ -2126,9 +2163,9 @@ animation: gridDrift 18s linear infinite;
             B.Tech CSE Student • Aspiring Software Developer
           </div>
 
-          <h1>
-            Building ideas.
-            <span>Turning them into real projects.</span>
+          <h1 class="hero-name">
+            1MM FAZIL
+            <span class="hero-role">WEB DEVELOPER</span>
           </h1>
 
           <p class="hero-description">
