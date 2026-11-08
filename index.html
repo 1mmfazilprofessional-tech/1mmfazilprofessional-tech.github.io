@@ -2850,21 +2850,7 @@ if ("IntersectionObserver" in window) {
     element.classList.add("active");
   });
 }
-        {
-          threshold: 0.12
-        }
-      );
-
-
-    if ("IntersectionObserver" in window) {
-      document.documentElement.classList.add("reveal-enabled");
-      revealElements.forEach((element) => {
-        revealObserver.observe(element);
-      });
-    } else {
-      revealElements.forEach((element) => element.classList.add("active"));
-    }
-
+        
 
     /* =======================================================
        CONTACT FORM
