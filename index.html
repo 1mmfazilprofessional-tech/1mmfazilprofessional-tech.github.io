@@ -1328,18 +1328,29 @@ animation: gridDrift 18s linear infinite;
        REVEAL ANIMATION
     ========================================================= */
 
-    /* Keep portfolio content visible even if an animation observer is unavailable. */
+    /* Progressive reveal: content remains visible unless the observer is ready. */
     .reveal {
       opacity: 1;
       transform: none;
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .reveal.active {
+    .reveal-enabled .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+    }
+
+    .reveal-enabled .reveal.active {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-enabled .reveal,
+      .reveal-enabled .reveal.active {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     /* =========================================================
@@ -2842,11 +2853,14 @@ animation: gridDrift 18s linear infinite;
       );
 
 
-    revealElements.forEach((element) => {
-
-      revealObserver.observe(element);
-
-    });
+    if ("IntersectionObserver" in window) {
+      document.documentElement.classList.add("reveal-enabled");
+      revealElements.forEach((element) => {
+        revealObserver.observe(element);
+      });
+    } else {
+      revealElements.forEach((element) => element.classList.add("active"));
+    }
 
 
     /* =======================================================
@@ -2896,14 +2910,9 @@ animation: gridDrift 18s linear infinite;
 
     </script>
 
-<!-- Import map required for the existing Three.js hero module. -->
-<script type="importmap">
-  {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
-</script>
-
 <!-- THREE.JS 3D HERO -->
 <script type="module">
-  import * as THREE from "three";
+  import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
   const container = document.getElementById("hero3d");
 
