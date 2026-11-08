@@ -2924,8 +2924,9 @@ animation: gridDrift 18s linear infinite;
       powerPreference: "high-performance"
     });
 
+    // Keep the original 3D hero, but limit GPU load on everyday laptops.
     renderer.setPixelRatio(
-      Math.min(window.devicePixelRatio, 1.8)
+      Math.min(window.devicePixelRatio || 1, 1.25)
     );
 
     renderer.setSize(
@@ -3320,86 +3321,79 @@ statusLabel.position.set(0, -3.25, 0.2);
 identityGroup.add(statusLabel);
 
     let time = 0;
+    let lastFrame = 0;
+    const frameInterval = 1000 / 30; // 30 FPS is smoother on mid-range devices.
+    let heroVisible = true;
 
-    function animate() {
+    const heroObserver = new IntersectionObserver((entries) => {
+      heroVisible = entries.some((entry) => entry.isIntersecting);
+    }, { threshold: 0.01 });
+    heroObserver.observe(container);
+
+    function animate(now) {
       requestAnimationFrame(animate);
 
+      if (document.hidden || !heroVisible || now - lastFrame < frameInterval) {
+        return;
+      }
+
+      const delta = lastFrame ? Math.min((now - lastFrame) / 16.67, 2) : 1;
+      lastFrame = now;
+
       if (!prefersReducedMotion) {
-        time += 0.008;
+        time += 0.008 * delta;
 
-        coreGroup.rotation.y += 0.0035;
-        coreGroup.rotation.x =
-          Math.sin(time * 0.7) * 0.08;
+        coreGroup.rotation.y += 0.0035 * delta;
+        coreGroup.rotation.x = Math.sin(time * 0.7) * 0.08;
+        glow.rotation.y -= 0.002 * delta;
+        wire.rotation.z += 0.0018 * delta;
 
-        glow.rotation.y -= 0.002;
-        wire.rotation.z += 0.0018;
-
-        ring1.rotation.z += 0.002;
-        ring2.rotation.x -= 0.0017;
-        ring3.rotation.y += 0.0014;
-        
-         identityGroup.rotation.y -= 0.0008;
+        ring1.rotation.z += 0.002 * delta;
+        ring2.rotation.x -= 0.0017 * delta;
+        ring3.rotation.y += 0.0014 * delta;
+        identityGroup.rotation.y -= 0.0008 * delta;
 
         identityGroup.children.forEach((item) => {
           if (item.userData.baseY !== undefined) {
-            item.position.y =
-              item.userData.baseY +
+            item.position.y = item.userData.baseY +
               Math.sin(time * 1.1 + item.userData.offset) * 0.035;
           }
         });
 
-          const pulse =
-          0.92 + Math.sin(time * 1.8) * 0.04;
-
+        const pulse = 0.92 + Math.sin(time * 1.8) * 0.04;
         core.scale.setScalar(pulse);
-
-        glow.material.opacity =
-          0.10 + Math.sin(time * 1.5) * 0.035;
-
-        wire.material.opacity =
-          0.22 + Math.sin(time * 1.2) * 0.05;
-
-        keyLight.intensity =
-          17 + Math.sin(time * 1.6) * 2;
-
-        fillLight.intensity =
-          7 + Math.sin(time * 1.25) * 1.2;
-
-        camera.position.x =
-          Math.sin(time * 0.35) * 0.04;
-
-        camera.position.y =
-          Math.cos(time * 0.3) * 0.035;
-
+        glow.material.opacity = 0.10 + Math.sin(time * 1.5) * 0.035;
+        wire.material.opacity = 0.22 + Math.sin(time * 1.2) * 0.05;
+        keyLight.intensity = 17 + Math.sin(time * 1.6) * 2;
+        fillLight.intensity = 7 + Math.sin(time * 1.25) * 1.2;
+        camera.position.x = Math.sin(time * 0.35) * 0.04;
+        camera.position.y = Math.cos(time * 0.3) * 0.035;
         camera.lookAt(0, 0, 0);
 
-        moduleGroup.rotation.y += 0.0022;
-        moduleGroup.rotation.x =
-          Math.sin(time * 0.45) * 0.025;
+        moduleGroup.rotation.y += 0.0022 * delta;
+        moduleGroup.rotation.x = Math.sin(time * 0.45) * 0.025;
+        particles.rotation.y += 0.00035 * delta;
+        particles.rotation.x += 0.00012 * delta;
 
-        particles.rotation.y += 0.00035;
-        particles.rotation.x += 0.00012;
-
-        const floatOffset =
-          Math.sin(time * 1.15) * 0.08;
-
+        const floatOffset = Math.sin(time * 1.15) * 0.08;
         coreGroup.position.y = floatOffset;
-
-        ringGroup.position.y =
-          floatOffset * 0.65;
-
-        moduleGroup.position.y =
-          floatOffset * 0.55;
+        ringGroup.position.y = floatOffset * 0.65;
+        moduleGroup.position.y = floatOffset * 0.55;
 
         modules.forEach((module, index) => {
-          module.rotation.x += 0.004 + index * 0.0003;
-          module.rotation.y -= 0.003 + index * 0.0002;
+          module.rotation.x += (0.004 + index * 0.0003) * delta;
+          module.rotation.y -= (0.003 + index * 0.0002) * delta;
         });
       }
 
       renderer.render(scene, camera);
     }
 
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) lastFrame = 0;
+    });
+
+    
     /* ---------- RESPONSIVE ---------- */
 
     function resizeScene() {
@@ -3654,7 +3648,13 @@ ctx.rotate(orbitAngle);
 
   let startTime = performance.now();
 
+  let lastBackgroundFrame = 0;
   function animate(now) {
+    requestAnimationFrame(animate);
+
+    if (document.hidden || now - lastBackgroundFrame < 1000 / 30) return;
+    lastBackgroundFrame = now;
+
     const elapsed =
       now - startTime;
 
@@ -3697,7 +3697,6 @@ ctx.rotate(orbitAngle);
       scrollY
     );
 
-    requestAnimationFrame(animate);
   }
 
   window.addEventListener(
