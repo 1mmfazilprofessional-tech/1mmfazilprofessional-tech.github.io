@@ -1893,7 +1893,7 @@ animation: gridDrift 18s linear infinite;
 
 
   
-#fazil-intro{position:relative;isolation:isolate;height:100svh;min-height:650px;overflow:hidden;display:grid;grid-template-columns:.85fr 1.15fr;align-items:center;padding:clamp(28px,6vw,88px);background:radial-gradient(ellipse at 74% 52%,rgba(255,77,61,.18),transparent 43%),linear-gradient(120deg,#050505,#100807);border-bottom:1px solid rgba(255,77,61,.2)}#fazil-intro:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,77,61,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,61,.05) 1px,transparent 1px);background-size:56px 56px}#fazil-particles{position:absolute;inset:0;width:100%;height:100%;z-index:0}.fazil-copy{position:relative;z-index:2;pointer-events:none}.fazil-copy small{font:600 10px 'JetBrains Mono',monospace;letter-spacing:.3em;color:#ff806f}.fazil-copy h1{font:800 clamp(46px,7vw,96px)/.9 'Space Grotesk',sans-serif;letter-spacing:-.07em;color:#f6f2ef;margin-top:24px}.fazil-copy h1 span{display:block;color:#ff4d3d;margin-top:10px;text-shadow:0 0 34px #ff4d3d44}.fazil-copy p{max-width:360px;color:#c0b2ae;line-height:1.8;margin-top:24px;font-size:14px}.fazil-copy b{display:block;color:#ff806f;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.2em;margin-top:32px}@media(max-width:760px){#fazil-intro{display:block;padding:34px 24px;min-height:94svh;height:94svh}#fazil-particles{inset:15% -8% 0;width:110%;height:85%}.fazil-copy{padding-top:3vh}.fazil-copy h1{font-size:clamp(46px,13vw,72px)}.fazil-copy p{max-width:260px;font-size:12px;margin-top:15px}.fazil-copy b{margin-top:17px}}
+#fazil-intro{position:relative;isolation:isolate;display:grid;grid-template-columns:.78fr 1.22fr;align-items:center;min-height:100svh;height:100svh;max-height:980px;overflow:hidden;padding:clamp(28px,6vw,88px);background:radial-gradient(ellipse at 76% 50%,rgba(255,77,61,.2),transparent 46%),linear-gradient(120deg,#050505 0%,#100807 62%,#050505 100%);border-bottom:1px solid rgba(255,77,61,.22)}#fazil-intro:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,77,61,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,61,.045) 1px,transparent 1px);background-size:56px 56px}#fazil-particles{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none}.fazil-copy{position:relative;z-index:2;pointer-events:none;max-width:560px}.fazil-copy small{font:600 10px 'JetBrains Mono',monospace;letter-spacing:.3em;color:#ff806f}.fazil-copy h1{font:800 clamp(46px,7vw,96px)/.9 'Space Grotesk',sans-serif;letter-spacing:-.07em;color:#f6f2ef;margin-top:24px}.fazil-copy h1 span{display:block;color:#ff4d3d;margin-top:10px;text-shadow:0 0 34px #ff4d3d44}.fazil-copy p{max-width:360px;color:#c0b2ae;line-height:1.8;margin-top:24px;font-size:14px}.fazil-copy b{display:block;color:#ff806f;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.2em;margin-top:32px}.fazil-copy:after{content:"";display:block;width:54px;height:2px;margin-top:26px;background:linear-gradient(90deg,#ff4d3d,transparent);box-shadow:0 0 18px #ff4d3d88}@media(max-width:760px){#fazil-intro{display:block;padding:34px 24px;min-height:94svh;height:94svh;max-height:none}#fazil-particles{inset:8% -10% 0;width:120%;height:92%}.fazil-copy{padding-top:3vh}.fazil-copy h1{font-size:clamp(46px,13vw,72px)}.fazil-copy p{max-width:260px;font-size:12px;margin-top:15px}.fazil-copy b{margin-top:17px}}
 </style>
 </head>
 
@@ -3718,5 +3718,86 @@ ctx.rotate(orbitAngle);
 })();
 </script>
 
-<script>(()=>{const s=document.getElementById('fazil-intro'),c=document.getElementById('fazil-particles');if(!s||!c)return;const x=c.getContext('2d'),im=new Image();im.src='/assets/intro/fazil-particle-source.jpg';let w=0,h=0,d=1,P=[],on=true,last=0,failed=false;function size(){let r=s.getBoundingClientRect();w=r.width;h=r.height;d=Math.min(devicePixelRatio||1,1.5);c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0)}function sample(){let a=document.createElement('canvas');a.width=240;a.height=243;let q=a.getContext('2d',{willReadFrequently:true});q.drawImage(im,0,0,240,243);let z=q.getImageData(0,0,240,243).data;P=[];for(let y=0;y<243;y+=2)for(let xx=0;xx<240;xx+=2){let k=(y*240+xx)*4,r=z[k],g=z[k+1],b=z[k+2];if(r+g+b<65)continue;P.push({u:xx/240-.5,v:y/243-.5,r,g,b,a:Math.random()*6.28,sz:.6+Math.random()})}}function draw(T){requestAnimationFrame(draw);if(!on||!P.length||T-last<25)return;last=T;x.clearRect(0,0,w,h);let mobile=w<760,sc=Math.min(h*(mobile?.66:.83),w*(mobile?1.02:.68)),cx=w*(mobile?.59:.72),cy=h*(mobile?.64:.52),t=T*.001;for(let i=0;i<55;i++){let a=i*.72+t*.15,rr=sc*(.55+i%7*.018);x.fillStyle='#ff725522';x.fillRect(cx+Math.cos(a)*rr,cy+Math.sin(a*1.1)*rr*.55,1,1)}let pts=[];for(let p of P){let wave=Math.sin(p.u*9+t*1.7+p.a)*.105+Math.sin(p.v*12-t*1.2)*.04,depth=wave+Math.sin(p.a+t)*.025,rot=Math.sin(t*.22)*.15,xx=p.u*Math.cos(rot)-depth*Math.sin(rot),zz=p.u*Math.sin(rot)+depth*Math.cos(rot),pers=1+zz*.4;pts.push({x:cx+xx*sc*pers,y:cy+(p.v+wave*.2)*sc*1.03,p})}x.save();x.globalCompositeOperation='lighter';x.strokeStyle='#ff76501c';x.lineWidth=.45;let grid=new Map();for(let q of pts)grid.set(Math.round(q.p.u*120)+','+Math.round(q.p.v*120),q);for(let q of pts){let n=grid.get((Math.round(q.p.u*120)+1)+','+Math.round(q.p.v*120));if(n){x.beginPath();x.moveTo(q.x,q.y);x.lineTo(n.x,n.y);x.stroke()}}for(let q of pts){let p=q.p,gl=(p.r*.3+p.g*.5+p.b*.2)/255;x.fillStyle='rgba('+Math.round(p.r*.55+255*.45)+','+Math.round(p.g*.55+75*.45)+','+Math.round(p.b*.55+52*.45)+','+(.7+gl*.25)+')';x.shadowColor='#ff4d3d88';x.shadowBlur=2;x.beginPath();x.arc(q.x,q.y,p.sz,0,6.283);x.fill()}x.restore()}im.onload=()=>{sample();size();requestAnimationFrame(draw)};im.onerror=()=>{failed=true;console.error('Portrait particle source failed to load:',im.src)};new ResizeObserver(size).observe(s);new IntersectionObserver(e=>on=e[0].isIntersecting).observe(s)})();</script></body>
+<script>
+(()=> {
+ const section=document.getElementById('fazil-intro');
+ const canvas=document.getElementById('fazil-particles');
+ if(!section||!canvas) return;
+ const ctx=canvas.getContext('2d',{alpha:true});
+ const image=new Image();
+ image.decoding='async';
+ image.src='/assets/intro/fazil-particle-source.jpg';
+ let width=0,height=0,dpr=1,particles=[],visible=true,lastFrame=0,raf=0;
+ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function resize(){
+   const rect=section.getBoundingClientRect();
+   width=rect.width;height=rect.height;dpr=Math.min(window.devicePixelRatio||1,1.5);
+   canvas.width=Math.max(1,Math.round(width*dpr));canvas.height=Math.max(1,Math.round(height*dpr));
+   ctx.setTransform(dpr,0,0,dpr,0,0);
+   if(particles.length) render(performance.now(),true);
+ }
+ function samplePortrait(){
+   const sample=document.createElement('canvas');sample.width=260;sample.height=260;
+   const sampleCtx=sample.getContext('2d',{willReadFrequently:true});
+   sampleCtx.drawImage(image,0,0,sample.width,sample.height);
+   const pixels=sampleCtx.getImageData(0,0,sample.width,sample.height).data;
+   particles=[];
+   for(let y=4;y<256;y+=2) for(let x=4;x<256;x+=2){
+     const k=(y*260+x)*4, r=pixels[k],g=pixels[k+1],b=pixels[k+2],a=pixels[k+3];
+     if(a<80 || r+g+b<48) continue;
+     particles.push({u:x/260-.5,v:y/260-.5,r,g,b,phase:Math.random()*Math.PI*2,size:.65+Math.random()*1.05});
+   }
+ }
+ function render(now,still=false){
+   if(!visible&&!still)return;
+   if(!still && now-lastFrame<28){raf=requestAnimationFrame(render);return;}
+   lastFrame=now;ctx.clearRect(0,0,width,height);
+   const mobile=width<760;
+   const scale=Math.min(height*(mobile?.69:.91),width*(mobile?1.05:.72));
+   const cx=width*(mobile?.57:.73),cy=height*(mobile?.62:.52),t=reduceMotion?0:now*.001;
+   // orbiting sparks and soft energy rings
+   ctx.save();ctx.globalCompositeOperation='lighter';
+   for(let ring=0;ring<3;ring++){
+     ctx.beginPath();ctx.ellipse(cx,cy,scale*(.48+ring*.075),scale*(.13+ring*.022),-.12+ring*.12,0,Math.PI*2);
+     ctx.strokeStyle='rgba(255,77,61,'+(.12-ring*.025)+')';ctx.lineWidth=1;ctx.stroke();
+   }
+   for(let i=0;i<95;i++){
+     const a=i*2.399+t*(.18+(i%4)*.035),r=scale*(.45+(i%13)*.018);
+     const px=cx+Math.cos(a)*r,py=cy+Math.sin(a*1.13)*r*.48;
+     ctx.fillStyle='rgba(255,125,95,'+(.15+(i%5)*.035)+')';ctx.fillRect(px,py,1.5,1.5);
+   }
+   // Portrait reconstructed from thousands of moving points
+   const tilt=Math.sin(t*.34)*.105;
+   const projected=[];
+   for(const p of particles){
+     const wave=reduceMotion?0:Math.sin(p.u*8.5+t*1.55+p.phase)*.075+Math.sin(p.v*11-t*1.2)*.035;
+     const depth=wave+(reduceMotion?0:Math.sin(p.phase+t*.8)*.025);
+     const xx=p.u*Math.cos(tilt)-depth*Math.sin(tilt);
+     const zz=p.u*Math.sin(tilt)+depth*Math.cos(tilt);
+     const perspective=1+zz*.22;
+     projected.push({x:cx+xx*scale*perspective,y:cy+(p.v+wave*.22)*scale*1.02,p});
+   }
+   ctx.lineWidth=.42;ctx.strokeStyle='rgba(255,105,75,.14)';
+   const cells=new Map();
+   for(const q of projected) cells.set(Math.round(q.p.u*130)+','+Math.round(q.p.v*130),q);
+   for(const q of projected){
+     const key=(Math.round(q.p.u*130)+1)+','+Math.round(q.p.v*130),near=cells.get(key);
+     if(near){ctx.beginPath();ctx.moveTo(q.x,q.y);ctx.lineTo(near.x,near.y);ctx.stroke();}
+   }
+   for(const q of projected){
+     const p=q.p,gl=(p.r*.3+p.g*.5+p.b*.2)/255;
+     ctx.fillStyle='rgba('+Math.round(p.r*.64+255*.36)+','+Math.round(p.g*.64+75*.36)+','+Math.round(p.b*.64+52*.36)+','+(.72+gl*.22)+')';
+     ctx.shadowColor='rgba(255,77,61,.75)';ctx.shadowBlur=1.8;
+     ctx.beginPath();ctx.arc(q.x,q.y,p.size,0,Math.PI*2);ctx.fill();
+   }
+   ctx.restore();
+   if(!still) raf=requestAnimationFrame(render);
+ }
+ image.onload=()=>{try{samplePortrait();resize();render(performance.now());section.dataset.portraitParticles='ready';}catch(error){console.error('Particle portrait initialization failed',error);section.dataset.portraitParticles='error';}};
+ image.onerror=()=>{section.dataset.portraitParticles='image-error';console.error('Could not load the portrait particle source:',image.src);};
+ window.addEventListener('resize',resize,{passive:true});
+ document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible&&particles.length)raf=requestAnimationFrame(render);});
+ if('IntersectionObserver'in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible&&particles.length)raf=requestAnimationFrame(render);}).observe(section);
+})();
+</script></body>
 </html>
