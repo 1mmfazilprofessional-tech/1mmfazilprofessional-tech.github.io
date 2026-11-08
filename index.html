@@ -1978,7 +1978,7 @@ animation: gridDrift 18s linear infinite;
   <script type="importmap">
   {
     "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js"
+      "three": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js"
     }
   }
   </script>
@@ -3458,6 +3458,9 @@ identityGroup.add(statusLabel);
       }
 
       renderer.render(scene, camera);
+      container.dataset.threeReady = "true";
+      const fallbackCanvas = container.querySelector("[data-hero-fallback]");
+      if (fallbackCanvas) fallbackCanvas.remove();
     }
 
     document.addEventListener("visibilitychange", () => {
@@ -3487,6 +3490,132 @@ identityGroup.add(statusLabel);
     resizeScene();
     animate();
   }
+</script>
+
+<!-- 3D HERO SAFETY FALLBACK: shown only if the WebGL hero fails to initialize. -->
+<script>
+(() => {
+  const host = document.getElementById("hero3d");
+  if (!host) return;
+
+  function startFallback() {
+    if (host.dataset.threeReady === "true" || host.querySelector("[data-hero-fallback]")) return;
+
+    const canvas = document.createElement("canvas");
+    canvas.dataset.heroFallback = "true";
+    canvas.setAttribute("aria-hidden", "true");
+    canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block;";
+    host.appendChild(canvas);
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let width = 0, height = 0, angle = 0, last = 0, visible = true;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const observer = ("IntersectionObserver" in window)
+      ? new IntersectionObserver(entries => { visible = entries.some(e => e.isIntersecting); }, { threshold: 0.01 })
+      : null;
+    if (observer) observer.observe(host);
+
+    function resize() {
+      const rect = host.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw(now) {
+      requestAnimationFrame(draw);
+      if (document.hidden || !visible || now - last < 1000 / 30) return;
+      last = now;
+      const scale = Math.min(width, height) / 620;
+      const cx = width * 0.5, cy = height * 0.5;
+      const r = Math.min(width, height) * 0.235;
+      if (!reduceMotion) angle += 0.009;
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(scale, scale);
+
+      const glow = ctx.createRadialGradient(0, 0, 8, 0, 0, 190);
+      glow.addColorStop(0, "rgba(255,77,61,.18)");
+      glow.addColorStop(1, "rgba(255,77,61,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath(); ctx.arc(0, 0, 190, 0, Math.PI * 2); ctx.fill();
+
+      for (let i = 0; i < 3; i++) {
+        ctx.save();
+        ctx.rotate(angle * (i % 2 ? -0.72 : 0.55) + i * 0.85);
+        ctx.strokeStyle = i === 1 ? "rgba(255,154,143,.34)" : "rgba(255,77,61,.72)";
+        ctx.lineWidth = i === 0 ? 2.2 : 1.35;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 178 + i * 24, 62 + i * 8, i * 0.12, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      const sphere = ctx.createRadialGradient(-48, -58, 10, 0, 0, r * 1.25);
+      sphere.addColorStop(0, "#4b2421");
+      sphere.addColorStop(0.48, "#191516");
+      sphere.addColorStop(1, "#050505");
+      ctx.fillStyle = sphere;
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
+
+      ctx.save();
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.clip();
+      ctx.strokeStyle = "rgba(255,105,88,.48)";
+      ctx.lineWidth = 1.15;
+      for (let i = -2; i <= 2; i++) {
+        const rx = r * Math.cos(angle + i * 0.38);
+        ctx.beginPath(); ctx.ellipse(0, 0, Math.max(3, Math.abs(rx)), r, 0, 0, Math.PI * 2); ctx.stroke();
+      }
+      for (let i = -2; i <= 2; i++) {
+        const ry = r * Math.cos(i * 0.42);
+        ctx.beginPath(); ctx.ellipse(0, 0, r, Math.max(3, Math.abs(ry)), angle * 0.15, 0, Math.PI * 2); ctx.stroke();
+      }
+      ctx.restore();
+
+      ctx.shadowColor = "#ff4d3d";
+      ctx.shadowBlur = 22;
+      ctx.fillStyle = "#fff";
+      ctx.font = "700 25px Arial, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("1MM FAZIL", 0, 0);
+      ctx.shadowBlur = 0;
+
+      const labels = [
+        ["</>", 0, -220], ["HTML", -220, -92], ["CSS", 220, -80],
+        ["JS", -205, 105], ["PYTHON", 0, 225], ["JAVA", 205, 110]
+      ];
+      ctx.font = "700 13px Arial, sans-serif";
+      labels.forEach((item, i) => {
+        const x = item[1] * Math.cos(angle * 0.25 + i * 0.12) - item[2] * Math.sin(angle * 0.25 + i * 0.12);
+        const y = item[1] * Math.sin(angle * 0.25 + i * 0.12) + item[2] * Math.cos(angle * 0.25 + i * 0.12);
+        const w = ctx.measureText(item[0]).width + 24;
+        ctx.fillStyle = "rgba(10,10,10,.82)";
+        ctx.strokeStyle = "rgba(255,77,61,.5)";
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.roundRect(x - w / 2, y - 13, w, 26, 7); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = i % 2 ? "#f0f0f0" : "#ff8a78";
+        ctx.fillText(item[0], x, y);
+      });
+
+      ctx.restore();
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    requestAnimationFrame(draw);
+  }
+
+  // Give the original Three.js module time to render first.
+  window.setTimeout(startFallback, 2200);
+})();
 </script>
 
   <script>
